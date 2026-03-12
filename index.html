@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VINCEGUIDE - Blox Fruits Quest Guide</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>VINCEGUIDE - Blox Fruits Ultimate Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,22 +12,26 @@
         }
 
         :root {
-            --primary-blue: #00d4ff;
-            --primary-purple: #8b5cf6;
-            --dark-bg: #0a0a0f;
-            --card-bg: #12121a;
-            --border-color: #1e1e2e;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0b0;
-            --accent-glow: rgba(139, 92, 246, 0.3);
+            --primary: #ff6b35;
+            --secondary: #f7931e;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --card: #151515;
+            --text: #ffffff;
+            --text-secondary: #b0b0b0;
+            --mythical: #ff006e;
+            --legendary: #ffd700;
+            --rare: #00b4d8;
+            --uncommon: #06ffa5;
+            --common: #b0b0b0;
         }
 
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text);
+            min-height: 100vh;
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
         /* Animated Background */
@@ -39,1363 +42,929 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-            animation: bgPulse 8s ease-in-out infinite;
+            overflow: hidden;
         }
 
-        @keyframes bgPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        .floating-fruit {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
         }
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 10, 15, 0.95);
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            33% { transform: translateY(-100px) translateX(50px); }
+            66% { transform: translateY(50px) translateX(-50px); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
             z-index: 1000;
-            padding: 1rem 0;
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
         }
 
-        .nav-container {
+        .header-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-transform: uppercase;
             letter-spacing: 2px;
+            animation: glow 2s ease-in-out infinite alternate;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px var(--primary)); }
+            to { filter: drop-shadow(0 0 20px var(--secondary)); }
         }
 
-        .nav-links a {
+        .last-update {
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-blue);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 80px;
-            padding: 4rem 2rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple), var(--primary-blue));
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 3s linear infinite;
-        }
-
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        /* Controls */
-        .controls {
-            max-width: 1400px;
-            margin: 0 auto 3rem;
-            padding: 0 2rem;
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .search-box {
-            position: relative;
-            flex: 1;
-            min-width: 300px;
-            max-width: 500px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 1rem 1.5rem 1rem 3rem;
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--primary-purple);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        .search-box::before {
-            content: '🔍';
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .filter-group {
-            display: flex;
+            align-items: center;
             gap: 0.5rem;
-            flex-wrap: wrap;
         }
 
-        .filter-btn {
-            padding: 0.8rem 1.5rem;
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-secondary);
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+        .live-indicator {
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            border-color: var(--primary-purple);
-            color: var(--primary-blue);
-            box-shadow: 0 0 15px var(--accent-glow);
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
-        /* Category Tabs */
-        .category-tabs {
+        /* Navigation */
+        nav {
+            background: var(--card);
+            padding: 1rem;
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+            border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .nav-container {
             max-width: 1400px;
-            margin: 0 auto 2rem;
-            padding: 0 2rem;
+            margin: 0 auto;
             display: flex;
             gap: 1rem;
             overflow-x: auto;
             scrollbar-width: none;
         }
 
-        .category-tabs::-webkit-scrollbar {
+        .nav-container::-webkit-scrollbar {
             display: none;
         }
 
-        .category-tab {
-            padding: 1rem 2rem;
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-secondary);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--text);
+            border-radius: 30px;
             cursor: pointer;
-            white-space: nowrap;
             transition: all 0.3s;
+            font-weight: 600;
+            white-space: nowrap;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* Tier List Section */
+        .tier-container {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .tier-row {
+            background: var(--card);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .tier-row:hover {
+            transform: translateX(10px);
+        }
+
+        .tier-header {
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tier-s { background: linear-gradient(90deg, #ff006e, #ff4d9e); }
+        .tier-a { background: linear-gradient(90deg, #ffd700, #ffed4e); color: #000; }
+        .tier-b { background: linear-gradient(90deg, #00b4d8, #90e0ef); }
+        .tier-c { background: linear-gradient(90deg, #06ffa5, #4effc9); color: #000; }
+        .tier-d { background: linear-gradient(90deg, #b0b0b0, #e0e0e0); color: #000; }
+
+        .tier-content {
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .fruit-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
         }
 
-        .category-tab::before {
+        .fruit-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
         }
 
-        .category-tab:hover::before {
+        .fruit-card:hover::before {
             left: 100%;
         }
 
-        .category-tab.active {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(0, 212, 255, 0.2));
-            border-color: var(--primary-purple);
-            color: var(--text-primary);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        /* Quest Grid */
-        .quest-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem 4rem;
-        }
-
-        .quest-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .quest-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.5rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .quest-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-
-        .quest-card:hover {
+        .fruit-card:hover {
             transform: translateY(-5px);
-            border-color: var(--primary-purple);
-            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
         }
 
-        .quest-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .quest-header {
+        .fruit-icon {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
             display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
         }
 
-        .quest-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
+        .fruit-name {
             font-weight: 700;
-            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
 
-        .quest-sea {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid var(--primary-blue);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--primary-blue);
-        }
-
-        .quest-info {
-            display: grid;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .info-row {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .fruit-type {
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: var(--primary-purple);
-        }
-
-        .quest-reward {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .reward-tag {
-            padding: 0.3rem 0.8rem;
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid var(--primary-purple);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--primary-purple);
-        }
-
-        .view-guide-btn {
-            width: 100%;
-            padding: 0.8rem;
-            background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .view-guide-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+        /* Guide Section */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            overflow-y: auto;
-            backdrop-filter: blur(10px);
-        }
-
-        .modal.active {
-            display: flex;
-            justify-content: center;
-            align-items: start;
-            padding: 2rem;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
+        .guide-card {
+            background: var(--card);
             border-radius: 20px;
-            max-width: 800px;
-            width: 100%;
-            position: relative;
-            animation: modalSlide 0.3s ease;
-        }
-
-        @keyframes modalSlide {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
             padding: 2rem;
-            border-bottom: 2px solid var(--border-color);
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 50%;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
+            border: 1px solid rgba(255, 107, 53, 0.2);
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .modal-close:hover {
-            background: rgba(255, 0, 0, 0.3);
-            transform: rotate(90deg);
+        .guide-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
         }
 
-        .modal-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .guide-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .guide-icon {
+            font-size: 3rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
-        .modal-body {
-            padding: 2rem;
-        }
-
-        .guide-section {
-            margin-bottom: 2rem;
-        }
-
-        .guide-section h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-blue);
+        .guide-title {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            color: var(--primary);
         }
 
-        .guide-section ol {
-            padding-left: 1.5rem;
-        }
-
-        .guide-section li {
-            margin-bottom: 0.8rem;
+        .guide-content {
             color: var(--text-secondary);
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
-        .guide-section li::marker {
-            color: var(--primary-purple);
-            font-weight: bold;
-        }
-
-        .tip-box {
-            background: rgba(0, 212, 255, 0.1);
-            border-left: 4px solid var(--primary-blue);
-            padding: 1rem;
-            border-radius: 0 8px 8px 0;
+        .guide-list {
+            list-style: none;
             margin-top: 1rem;
         }
 
-        .tip-box strong {
-            color: var(--primary-blue);
+        .guide-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
         }
 
-        .stats-bar {
-            display: flex;
-            gap: 2rem;
+        .guide-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* Update Section */
+        .update-timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .update-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .update-item {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 2rem;
             margin-bottom: 2rem;
-            flex-wrap: wrap;
+            position: relative;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            animation: slideIn 0.5s ease-out;
         }
 
-        .stat-item {
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .update-item::before {
+            content: '';
+            position: absolute;
+            left: -3.4rem;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 4px solid var(--dark);
+            box-shadow: 0 0 0 4px var(--primary);
+        }
+
+        .update-date {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(139, 92, 246, 0.2);
+        .update-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .update-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .update-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .update-changes {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+        }
+
+        .change-item {
+            padding: 0.5rem 0;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
+            gap: 0.5rem;
         }
 
-        .stat-info {
-            display: flex;
-            flex-direction: column;
+        .change-added { color: #06ffa5; }
+        .change-removed { color: #ff006e; }
+        .change-fixed { color: #ffd700; }
+
+        /* PvP Section */
+        .pvp-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 2px;
         }
 
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+        .update-item {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            animation: slideIn 0.5s ease-out;
         }
 
-        .stat-value {
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .update-item::before {
+            content: '';
+            position: absolute;
+            left: -3.4rem;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 4px solid var(--dark);
+            box-shadow: 0 0 0 4px var(--primary);
+        }
+
+        .update-date {
+            color: var(--primary);
             font-weight: 700;
-            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .update-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .update-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .update-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .update-changes {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .change-item {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .change-added { color: #06ffa5; }
+        .change-removed { color: #ff006e; }
+        .change-fixed { color: #ffd700; }
+
+        /* PvP Section */
+        .pvp-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .pvp-container { grid-template-columns: 1fr; }
+        }
+
+        .combo-builder {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid var(--primary);
+        }
+
+        .combo-display {
+            min-height: 200px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-content: flex-start;
+        }
+
+        .combo-move {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 700;
+            animation: popIn 0.3s;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .combo-move:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.5);
+        }
+
+        .moves-palette {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .move-btn {
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .move-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .tips-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .tip-card:hover {
+            transform: translateX(10px);
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(247, 147, 30, 0.2));
+        }
+
+        .tip-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            opacity: 0.5;
+        }
+
+        /* Auto Update Notification */
+        .update-notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--card);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            max-width: 350px;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .update-notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 10px;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 2rem 1rem;
-            }
-
-            .quest-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-box {
-                max-width: 100%;
-            }
-
-            .category-tabs {
-                padding: 0 1rem;
-            }
-
-            .modal-content {
-                margin: 0;
-                border-radius: 0;
-                min-height: 100vh;
-            }
+            .logo { font-size: 1.5rem; }
+            .section-title { font-size: 1.8rem; }
+            .tier-content { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
         }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--dark-bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-purple);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-blue);
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            grid-column: 1 / -1;
-        }
-
-        .difficulty-badge {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-left: 0.5rem;
-        }
-
-        .difficulty-easy { background: rgba(0, 255, 0, 0.2); color: #00ff00; }
-        .difficulty-medium { background: rgba(255, 165, 0, 0.2); color: #ffa500; }
-        .difficulty-hard { background: rgba(255, 0, 0, 0.2); color: #ff0000; }
-        .difficulty-extreme { background: rgba(148, 0, 211, 0.2); color: #9400d3; }
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
+    <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">VINCEGUIDE</div>
+            <div class="last-update">
+                <span class="live-indicator"></span>
+                <span id="lastUpdate">Checking updates...</span>
+            </div>
+        </div>
+    </header>
 
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">VINCEGUIDE</div>
-            <ul class="nav-links">
-                <li><a href="#" onclick="showSection('home')">Home</a></li>
-                <li><a href="#" onclick="showSection('quests')">Quest List</a></li>
-                <li><a href="#" onclick="showSection('about')">About</a></li>
-            </ul>
+            <button class="nav-btn active" onclick="showSection('tierlist')">Tier List</button>
+            <button class="nav-btn" onclick="showSection('howto')">Cara Mendapatkan</button>
+            <button class="nav-btn" onclick="showSection('beginner')">Guide Pemula</button>
+            <button class="nav-btn" onclick="showSection('updates')">Update Terbaru</button>
+            <button class="nav-btn" onclick="showSection('pvp')">Combo & PvP Tips</button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>VINCEGUIDE</h1>
-        <p>Guide quest penting di Blox Fruits lengkap dengan cara menyelesaikannya.</p>
-    </section>
-
-    <!-- Controls -->
-    <div class="controls">
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Cari quest... (contoh: Saber, CDK, Race V4)">
-        </div>
-        <div class="filter-group">
-            <button class="filter-btn active" data-filter="all">Semua Sea</button>
-            <button class="filter-btn" data-filter="sea1">Sea 1</button>
-            <button class="filter-btn" data-filter="sea2">Sea 2</button>
-            <button class="filter-btn" data-filter="sea3">Sea 3</button>
-        </div>
-    </div>
-
-    <!-- Category Tabs -->
-    <div class="category-tabs">
-        <button class="category-tab active" data-category="all">Semua Kategori</button>
-        <button class="category-tab" data-category="sword">Sword Quest</button>
-        <button class="category-tab" data-category="fighting">Fighting Style</button>
-        <button class="category-tab" data-category="boss">Boss Quest</button>
-        <button class="category-tab" data-category="puzzle">Puzzle Quest</button>
-        <button class="category-tab" data-category="race">Race Quest</button>
-    </div>
-
-    <!-- Quest Container -->
-    <div class="quest-container">
-        <div class="quest-grid" id="questGrid"></div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal" id="questModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="modal-close" onclick="closeModal()">×</button>
-                <h2 class="modal-title" id="modalTitle">Quest Title</h2>
-                <div class="stats-bar" id="modalStats"></div>
+    <!-- Main Content -->
+    <main>
+        <!-- Tier List Section -->
+        <section id="tierlist" class="section active">
+            <h2 class="section-title">Tier List Buah Terbaik</h2>
+            <div class="tier-container" id="tierContainer">
+                <!-- Auto-generated from API -->
             </div>
-            <div class="modal-body" id="modalBody"></div>
+        </section>
+
+        <!-- How to Get Section -->
+        <section id="howto" class="section">
+            <h2 class="section-title">Cara Mendapatkan Buah</h2>
+            <div class="guide-grid" id="howToContainer">
+                <!-- Auto-generated content -->
+            </div>
+        </section>
+
+        <!-- Beginner Guide Section -->
+        <section id="beginner" class="section">
+            <h2 class="section-title">Guide untuk Pemula</h2>
+            <div class="guide-grid" id="beginnerContainer">
+                <!-- Auto-generated content -->
+            </div>
+        </section>
+
+        <!-- Updates Section -->
+        <section id="updates" class="section">
+            <h2 class="section-title">Update Terbaru</h2>
+            <div class="update-timeline" id="updateContainer">
+                <!-- Auto-generated from API -->
+            </div>
+        </section>
+
+        <!-- PvP Section -->
+        <section id="pvp" class="section">
+            <h2 class="section-title">Combo & Tips PvP</h2>
+            <div class="pvp-container">
+                <div class="combo-builder">
+                    <h3>Combo Builder</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Klik move untuk membuat combo</p>
+                    <div class="combo-display" id="comboDisplay">
+                        <span style="color: var(--text-secondary); width: 100%; text-align: center;">Klik move di bawah untuk mulai...</span>
+                    </div>
+                    <div class="moves-palette" id="movesPalette">
+                        <!-- Generated by JS -->
+                    </div>
+                    <button class="nav-btn" style="margin-top: 1rem; width: 100%;" onclick="clearCombo()">Clear Combo</button>
+                </div>
+                <div class="tips-grid" id="pvpTips">
+                    <!-- Auto-generated tips -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Update Notification -->
+    <div class="update-notification" id="updateNotif">
+        <div class="notification-header">
+            <span>🔄</span>
+            <span>Update Tersedia!</span>
         </div>
+        <p id="updateMessage">Data telah diperbarui dengan informasi terbaru.</p>
     </div>
 
     <script>
-        // Quest Data
-        const quests = [
-            // SWORD QUESTS
-            {
-                id: 1,
-                name: "Saber Quest",
-                category: "sword",
-                sea: "sea1",
-                level: "200+",
-                location: "Jungle",
-                npc: "Saber Expert",
-                reward: ["Saber Sword"],
-                difficulty: "medium",
-                steps: [
-                    "Pergi ke Jungle dan cari NPC di dalam gubuk yang terkunci",
-                    "Selesaikan puzzle di Jungle: Hidupkan semua lampu berwarna hijau dengan urutan yang benar",
-                    "Dapatkan Torch dari bawah pohon besar di Jungle",
-                    "Bawa Torch ke Frozen Village dan masuk ke ruangan bawah tanah",
-                    "Selesaikan puzzle di Frozen Village dengan menyalakan api",
-                    "Dapatkan Cup dari ruangan bawah tanah",
-                    "Bawa Cup ke Desert dan isi dengan air dari oasis",
-                    "Bawa kembali ke Jungle dan berikan ke NPC",
-                    "Lawan Saber Expert (Level 200) untuk mendapatkan Saber Sword"
-                ],
-                tips: "Pastikan levelmu sudah cukup tinggi sebelum melawan Saber Expert. Bawa potion healing."
-            },
-            {
-                id: 2,
-                name: "True Triple Katana Quest",
-                category: "sword",
-                sea: "sea3",
-                level: "700+",
-                location: "Various",
-                npc: "Mysterious Entity",
-                reward: ["True Triple Katana"],
-                difficulty: "hard",
-                steps: [
-                    "Kumpulkan 3 Legendary Sword: Saddi, Shisui, dan Wando",
-                    "Dapatkan dari Legendary Sword Dealer (random spawn setiap 4-6 jam)",
-                    "Setelah punya ketiga sword, pergi ke lokasi rahasia di Sea 3",
-                    "Temui Mysterious Entity di gua tersembunyi",
-                    "Berikan ketiga sword untuk digabungkan menjadi TTK"
-                ],
-                tips: "Legendary Sword Dealer muncul random, gunakan Discord server untuk tracking. Siapkan 2 juta Beli untuk setiap sword."
-            },
-            {
-                id: 3,
-                name: "Yama Quest",
-                category: "sword",
-                sea: "sea3",
-                level: "2000+",
-                location: "Secret Temple",
-                npc: "Secret Temple Entrance",
-                reward: ["Yama Sword"],
-                difficulty: "extreme",
-                steps: [
-                    "Dapatkan 30 Elite Hunter kills",
-                    "Pergi ke Secret Temple di Sea 3 (lokasi rahasia di pulau besar)",
-                    "Letakkan kedua tangan di altar di depan pintu besar",
-                    "Jika syarat terpenuhi, pintu akan terbuka",
-                    "Masuk dan ambil Yama Sword dari altar dalam"
-                ],
-                tips: "Elite Hunter kills lebih mudah didapat dengan farming di Sea 3. Gunakan quest Elite Hunter dari NPC."
-            },
-            {
-                id: 4,
-                name: "Tushita Quest",
-                category: "sword",
-                sea: "sea3",
-                level: "2000+",
-                location: "Floating Turtle",
-                npc: "Longma",
-                reward: ["Tushita Sword"],
-                difficulty: "extreme",
-                steps: [
-                    "Dapatkan Yama terlebih dahulu (prasyarat)",
-                    "Pergi ke Floating Turtle di Sea 3",
-                    "Cari Longma di bagian atas pulau",
-                    "Lawan Longma (Level 2000) dengan Yama equipped",
-                    "Setelah mengalahkan Longma, Tushita akan muncul",
-                    "Ambil Tushita Sword dari altar"
-                ],
-                tips: "Longma sangat kuat, rekomendasi menggunakan Buddha atau Leopard. Pastikan Yama sudah ada di inventory."
-            },
-            {
-                id: 5,
-                name: "Cursed Dual Katana (CDK) Quest",
-                category: "sword",
-                sea: "sea3",
-                level: "2200+",
-                location: "Tushita & Yama",
-                npc: "Cursed Dual Katana Altar",
-                reward: ["Cursed Dual Katana"],
-                difficulty: "extreme",
-                steps: [
-                    "Dapatkan Tushita dan Yama (prasyarat utama)",
-                    "Upgrade kedua sword ke grade 350+",
-                    "Pergi ke lokasi altar rahasia di Sea 3",
-                    "Letakkan Tushita dan Yama di altar",
-                    "Selesaikan trial yang diberikan (mengalahkan boss spesial)",
-                    "Setelah menang, CDK akan muncul dan gabungkan kedua sword"
-                ],
-                tips: "Trial sangat sulit, rekomendasi level 2400+ dengan gear max. Bawa teman untuk membantu."
+        // Data Management System
+        const DataManager = {
+            cache: {},
+            lastFetch: 0,
+            cacheDuration: 5 * 60 * 1000, // 5 minutes
+
+            async fetchData(endpoint) {
+                const now = Date.now();
+                if (this.cache[endpoint] && (now - this.lastFetch) < this.cacheDuration) {
+                    return this.cache[endpoint];
+                }
+
+                try {
+                    // Simulating API fetch - In production, replace with actual Blox Fruits API
+                    const data = await this.simulateAPIFetch(endpoint);
+                    this.cache[endpoint] = data;
+                    this.lastFetch = now;
+                    return data;
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                    return this.getFallbackData(endpoint);
+                }
             },
 
-            // FIGHTING STYLE QUESTS
-            {
-                id: 6,
-                name: "God Human Quest",
-                category: "fighting",
-                sea: "sea3",
-                level: "2200+",
-                location: "Floating Turtle",
-                npc: "Ancient Monk",
-                reward: ["God Human Fighting Style"],
-                difficulty: "extreme",
-                steps: [
-                    "Punya semua fighting style sebelumnya: Dark Step, Electric, Water Kung Fu, Dragon Breath, Superhuman, Sharkman Karate, Death Step, Electric Claw, Dragon Talon",
-                    "Kumpulkan material yang dibutuhkan: 20 Fish Tail, 20 Mystic Droplet, 10 Dragon Scale",
-                    "Pergi ke Floating Turtle dan temui Ancient Monk di puncak",
-                    "Berikan semua material ke monk",
-                    "Selesaikan trial combat melawan monk",
-                    "Setelah menang, belajar God Human dengan harga 5 juta Beli dan 5000 Fragments"
-                ],
-                tips: "God Human adalah fighting style terkuat."
-            },
-            {
-                id: 7,
-                name: "Dragon Talon Quest",
-                category: "fighting",
-                sea: "sea3",
-                level: "2000+",
-                location: "Hydra Island",
-                npc: "Uzoth",
-                reward: ["Dragon Talon Fighting Style"],
-                difficulty: "hard",
-                steps: [
-                    "Punya Dragon Breath V2 (prasyarat)",
-                    "Pergi ke Hydra Island di Sea 3",
-                    "Temui Uzoth di dalam kuil",
-                    "Kumpulkan 10 Dragon Scale dari NPC Hydra",
-                    "Berikan ke Uzoth dan bayar 3 juta Beli",
-                    "Selesaikan quest tambahan dari Uzoth (mengalahkan boss khusus)"
-                ],
-                tips: "Dragon Scale drop dari semua NPC di Hydra Island. Farming dengan quest untuk efisiensi."
-            },
-            {
-                id: 8,
-                name: "Electric Claw Quest",
-                category: "fighting",
-                sea: "sea3",
-                level: "1500+",
-                location: "Castle on the Sea",
-                npc: "Previous Hero",
-                reward: ["Electric Claw Fighting Style"],
-                difficulty: "medium",
-                steps: [
-                    "Punya Electric fighting style dengan 400+ mastery",
-                    "Pergi ke Castle on the Sea",
-                    "Temui Previous Hero di menara",
-                    "Bayar 3 juta Beli untuk belajar Electric Claw",
-                    "Lari ke mansion secepatnya"
-                ],
-                tips: "Pastikan Electric sudah max mastery. Quest NPC bisa di-reset dengan server hop."
-            },
-            {
-                id: 9,
-                name: "Sharkman Karate Quest",
-                category: "fighting",
-                sea: "sea2",
-                level: "1300+",
-                location: "Forgotten Island",
-                npc: "Daigrock",
-                reward: ["Sharkman Karate Fighting Style"],
-                difficulty: "hard",
-                steps: [
-                    "Punya Water Kung Fu dengan 400+ mastery",
-                    "Pergi ke Forgotten Island di Sea 2",
-                    "Temui Daigrock di dalam gua",
-                    "Kumpulkan 20 Shark Tooth dari Shark NPC",
-                    "Berikan ke Daigrock dan bayar 2.5 juta Beli",
-                    "Selesaikan quest tambahan (mengalahkan Shark NPC)"
-                ],
-                tips: "Shark Tooth drop dari Shark NPC di Forgotten Island. Water Kung Fu harus equipped saat quest."
-            },
-            {
-                id: 10,
-                name: "Superhuman Quest",
-                category: "fighting",
-                sea: "sea2",
-                level: "1300+",
-                location: "Snow Mountain",
-                npc: "Martial Arts Master",
-                reward: ["Superhuman Fighting Style"],
-                difficulty: "hard",
-                steps: [
-                    "Punya 300+ mastery pada Dark Step, Electric, dan Water Kung Fu",
-                    "Pergi ke Snow Mountain di Sea 2",
-                    "Temui Martial Arts Master di puncak",
-                    "Bayar 3 juta Beli untuk belajar Superhuman",
-                    "Tidak perlu quest tambahan, langsung dapat fighting style"
-                ],
-                tips: "Farming mastery di Sea 1 lebih cepat. Pastikan semua fighting style sudah cukup mastery."
-            },
-
-            // BOSS QUESTS
-            {
-                id: 11,
-                name: "Rip Indra Boss Quest",
-                category: "boss",
-                sea: "sea3",
-                level: "2000+",
-                location: "Castle on the Sea",
-                npc: "Rip Indra",
-                reward: ["Valkyrie Helmet", "Dark Dagger", "Indra's Crown"],
-                difficulty: "extreme",
-                steps: [
-                    "Dapatkan God's Chalice dari elite boss atau chest",
-                    "Pergi ke Castle on the Sea pada malam hari",
-                    "Letakkan God's Chalice di altar di puncak castle",
-                    "Rip Indra (Level 5000) akan spawn",
-                    "Lawan dan kalahkan Rip Indra",
-                    "Dapatkan drop: Valkyrie Helmet, Dark Dagger, atau Indra's Crown"
-                ],
-                tips: "Rip Indra adalah boss tersulit di game. Butuh tim full party dengan level tinggi."
-            },
-            {
-                id: 12,
-                name: "Dough King Quest",
-                category: "boss",
-                sea: "sea3",
-                level: "2000+",
-                location: "Cake Land",
-                npc: "Dough King",
-                reward: ["Dough Raid Unlock", "Red Key", "Pale Scarf"],
-                difficulty: "extreme",
-                steps: [
-                    "Dapatkan Cake Chalice dari baking di Sea 3",
-                    "Kumpulkan 10 Conjured Cocoa dan 1 god chalice",
-                    "Bawa Cake Chalice ke drip mama di Cake Land",
-                    "Lawan ratusan musuh di cake island",
-                    "Gunakan Cake Chalice untuk summon Dough King",
-                    "Lawan Dough King (Level 2300) dengan tim",
-                    "Dapatkan Red Key untuk Dough Raid"
-                ],
-                tips: "Dough King mekaniknya kompleks. Red Key untuk unlock Dough Raid."
-            },
-            {
-                id: 13,
-                name: "Elite Hunter Quest",
-                category: "boss",
-                sea: "sea3",
-                level: "1500+",
-                location: "Castle on the Sea",
-                npc: "Elite Hunter",
-                reward: ["Elite Hunter Badge", "Rare Drops", "Fragments"],
-                difficulty: "hard",
-                steps: [
-                    "Pergi ke Castle on the Sea di Sea 3",
-                    "Temui Elite Hunter NPC",
-                    "Ambil quest untuk kill Elite Boss",
-                    "Elite Boss spawn random di Sea 3 setiap 10 menit",
-                    "Cari Elite Boss dengan mencari di pulau-pulau",
-                    "Kill Elite Boss dan kembali ke NPC untuk reward"
-                ],
-                tips: "Elite Boss drop item langka. Farming Elite Hunter untuk Yama quest."
-            },
-            {
-                id: 14,
-                name: "Leviathan Quest",
-                category: "boss",
-                sea: "sea3",
-                level: "2000+",
-                location: "Frozen Dimension",
-                npc: "Leviathan",
-                reward: ["Leviathan Heart", "Leviathan Shield", "Leviathan Crown"],
-                difficulty: "extreme",
-                steps: [
-                    "Pergi ke lokasi Frozen Dimension di Sea 3",
-                    "Frozen Dimension hanya muncul saat event salju",
-                    "Gunakan Frozen Watcher untuk summon Leviathan",
-                    "Lawan Leviathan (boss laut raksasa) dengan boat",
-                    "Hancurkan 5 bagian tubuh Leviathan",
-                    "Dapatkan Leviathan Heart dan scale"
-                ],
-                tips: "Butuh boat yang kuat dan tim besar. Leviathan adalah boss laut tersulit."
-            },
-
-            // PUZZLE QUESTS
-            {
-                id: 15,
-                name: "Soul Guitar Quest",
-                category: "puzzle",
-                sea: "sea3",
-                level: "2000+",
-                location: "Haunted Castle",
-                npc: "Soul Guitar Altar",
-                reward: ["Soul Guitar"],
-                difficulty: "extreme",
-                steps: [
-                    "Pergi ke Haunted Castle di Sea 3",
-                    "Doa saat full moon",
-                    "Selesaikan puzzle pertama: bunuh living zombie secara bersamaan",
-                    "Puzzle kedua: Hitung makam dan warnai yang lebih banyak",
-                    "Puzzle ketiga: ngomong ke ghost dan selesaikan maze di basement",
-                    "Setelah semua puzzle, warnai lantai bawah sesuai warna diatas player",
-                    "Dapatkan Soul Guitar dari boss"
-                ],
-                tips: "Puzzle sangat kompleks, lihat video guide untuk solusi exact. Soul Guitar adalah gun terkuat."
-            },
-            {
-                id: 16,
-                name: "Rainbow Haki Quest",
-                category: "puzzle",
-                sea: "sea3",
-                level: "1000+",
-                location: "Hot and Cold",
-                npc: "Haki Master",
-                reward: ["Rainbow Aura Haki"],
-                difficulty: "medium",
-                steps: [
-                    "Pergi ke Hot and Cold di Sea 3",
-                    "Temui Haki Master di sisi Hot",
-                    "Selesaikan quest untuk mengumpulkan fragment",
-                    "Kumpulkan 5000 fragment dari berbagai sumber",
-                    "Berikan ke Haki Master",
-                    "Bayar 5 juta Beli untuk unlock Rainbow Haki"
-                ],
-                tips: "Fragment bisa didapat dari raid, quest, dan boss. Rainbow Haki purely cosmetic."
-            },
-            {
-                id: 17,
-                name: "Instinct V2 Quest",
-                category: "puzzle",
-                sea: "sea3",
-                level: "1800+",
-                location: "Floating Turtle",
-                npc: "Instinct Teacher",
-                reward: ["Instinct V2 (Observation Haki)"],
-                difficulty: "hard",
-                steps: [
-                    "Punya Instinct V1 dengan 3000+ exp",
-                    "Pergi ke Floating Turtle di Sea 3",
-                    "Selesaikan quest bartilo",
-                    "Selesaikan trial Instinct: cari 3 buah di pulau berbeda",
-                    "Ngomong ke citizen untuk fruit bowl dan kasi ke hungry man",
-                    "Setelah berhasil, bayar 5 juta Beli untuk upgrade ke V2"
-                ],
-                tips: "Instinct V2 memberi dodge tambahan dan vision lebih baik. Practice timing dodge di V1."
-            },
-            {
-                id: 18,
-                name: "Aura V2 Quest",
-                category: "puzzle",
-                sea: "sea2",
-                level: "850+",
-                location: "Hot and Cold",
-                npc: "Aura Master",
-                reward: ["Aura V2"],
-                difficulty: "medium",
-                steps: [
-                    "Pergi ke Hot and Cold di Sea 2",
-                    "Temui Aura Master di sisi Cold",
-                    "Selesaikan quest untuk mengumpulkan material",
-                    "Kumpulkan 10 specific material dari NPC",
-                    "Berikan ke Aura Master",
-                    "Bayar 500 ribu Beli untuk upgrade ke Aura V2"
-                ],
-                tips: "Aura V2 memberi warna berbeda pada aura. Material drop dari NPC di Hot and Cold."
-            },
-
-            // RACE QUESTS
-            {
-                id: 19,
-                name: "Race V2 Quest",
-                category: "race",
-                sea: "sea2",
-                level: "850+",
-                location: "Green zone",
-                npc: "Alchemist",
-                reward: ["Race V2 (Evolved)"],
-                difficulty: "medium",
-                steps: [
-                    "Pergi ke Hot and Cold di Sea 2",
-                    "Temui Alchemist di sisi Cold",
-                    "Kumpulkan material yang diminta (berbeda tiap race):",
-                    "- Human: 1 Flower Red, 1 Flower Blue, 1 Flower Yellow",
-                    "- Shark: 1 Flower Red, 1 Flower Blue, 1 Flower Yellow",
-                    "- Angel: 1 Flower Red, 1 Flower Blue, 1 Flower Yellow",
-                    "- Rabbit: 1 Flower Red, 1 Flower Blue, 1 Flower Yellow",
-                    "- Ghoul: 1 Flower Red, 1 Flower Blue, 1 Flower Yellow",
-                    "- Cyborg: 1 Flower Red, 1 Flower Blue, 1 Flower Yellow",
-                    "Berikan material ke Alchemist",
-                    "Bayar 500 ribu Beli untuk evolve race ke V2"
-                ],
-                tips: "Flower spawn random di Sea 2. Gunakan spawn locations guide untuk mencari."
-            },
-            {
-                id: 20,
-                name: "Race V3 Quest",
-                category: "race",
-                sea: "sea2",
-                level: "1000+",
-                location: "Kingdom of Rose",
-                npc: "Arowe",
-                reward: ["Race V3 (Awakened)"],
-                difficulty: "hard",
-                steps: [
-                    "Punya Race V2 (prasyarat)",
-                    "Pergi ke Kingdom of Rose di Sea 2",
-                    "Temui Arowe di dalam gua rahasia (di bawah jembatan)",
-                    "Selesaikan quest spesifik sesuai race:",
-                    "- Human: Kalahkan Diamond, jeremy, orbitus",
-                    "- Shark: Kalahkan sea beast",
-                    "- Angel: Bunuh sesama jenis",
-                    "- Rabbit: Kumpulkan 20 chest",
-                    "- Ghoul: Kalahkan 5 orang",
-                    "- Cyborg: Keluarkan 1 fruit dari inventory",
-                    "Bayar 500k Beli untuk v2 dan 2 juta Beli untuk upgrade v3"
-                ],
-                tips: "Pastikan sudah V2 sebelum mulai."
-            },
-            {
-                id: 21,
-                name: "Race V4 Quest",
-                category: "race",
-                sea: "sea3",
-                level: "2000+",
-                location: "Temple of Time",
-                npc: "Ancient One",
-                reward: ["Race V4 (Ancient)"],
-                difficulty: "extreme",
-                steps: [
-                    "Punya Race V3 (prasyarat)",
-                    "Pergi ke Temple of Time di Sea 3",
-                    "Temui Ancient One di dalam kuil",
-                    "Selesaikan trial sesuai race (masing-masing berbeda):",
-                    "- Human: Selesaikan puzzle dan lawan boss",
-                    "- Shark: Bertahan dari serangan air",
-                    "- Angel: Terbang melewati rintangan",
-                    "- Rabbit: Cari jalan keluar di maze",
-                    "- Ghoul: Bertahan dari gelombang musuh",
-                    "- Cyborg: Bertahan dari serangan bom",
-                    "Kumpulkan Ancient Clock material dari trial",
-                    "Bayar 5 juta Beli dan 5000 fragment untuk unlock V4"
-                ],
-                tips: "Trial sangat sulit dan membutuhkan skill. Bawa teman untuk bantu jika stuck."
-            },
-            {
-                id: 22,
-                name: "Ghoul Race Quest",
-                category: "race",
-                sea: "sea2",
-                level: "1000+",
-                location: "Cursed Ship",
-                npc: "Crew Member",
-                reward: ["Ghoul Race"],
-                difficulty: "medium",
-                steps: [
-                    "Pergi ke Cursed Ship di Sea 2",
-                    "Temui Crew Member di dalam kapal",
-                    "Kumpulkan 100 Ectoplasm dari NPC Cursed Ship",
-                    "Dapatkan Hellfire Torch dari Cursed Captain (boss)",
-                    "Berikan semua material ke Crew Member",
-                    "Bayar 100 ectoplasm untuk change race ke Ghoul"
-                ],
-                tips: "Ectoplasm farming di Cursed Ship. Hellfire Torch drop rate rendah dari boss."
-            },
-            {
-                id: 23,
-                name: "Cyborg Race Quest",
-                category: "race",
-                sea: "sea2",
-                level: "1000+",
-                location: "Hot and Cold",
-                npc: "Secret Lab",
-                reward: ["Cyborg Race"],
-                difficulty: "medium",
-                steps: [
-                    "Pergi ke Hot and Cold di Sea 2",
-                    "Temui secret laboratory di sisi Hot",
-                    "Kumpulkan 1 fist of darkness dari chest/sb",
-                    "Dapatkan 1 Core Brain dari boss order",
-                    "Turun ke bawah laboratory",
-                    "Bayar 2.5k fragment untuk change race ke Cyborg"
-                ],
-                tips: "Fist of darkness langka. Core Brain drop dari boss order raid."
-            },
-            {
-                id: 24,
-                name: "Shark Race Quest",
-                category: "race",
-                sea: "sea1",
-                level: "0+",
-                location: "Cafe",
-                npc: "Tort",
-                reward: ["Shark Race"],
-                difficulty: "easy",
-                steps: [
-                    "Shark race didapat dari random roll saat pertama kali join game 12.5%",
-                    "Jika ingin change ke Shark, beli Race Reroll dari NPC Tort",
-                    "Race Reroll harga 90 Robux atau dapat dari 3k fragment 33%",
-                    "Chance mendapat Shark adalah 12.5%"
-                ],
-                tips: "Shark immune dari water damage. V4 Shark sangat tanky."
-            },
-            {
-                id: 25,
-                name: "Angel Race Quest",
-                category: "race",
-                sea: "sea1",
-                level: "0+",
-                location: "Cafe",
-                npc: "Tort",
-                reward: ["Angel Race"],
-                difficulty: "easy",
-                steps: [
-                    "Angel race didapat dari random roll saat pertama kali join game",
-                    "Jika ingin change ke Angel, beli Race Reroll dari NPC Tort",
-                    "Race Reroll harga 90 Robux atau dapat dari event",
-                    "Chance mendapat Angel adalah 12.5%"
-                ],
-                tips: "Angel bagus untuk healing dan flight. V4 Angel bisa buff terbang."
-            }
-        ];
-
-        // Initialize
-        let currentFilter = 'all';
-        let currentCategory = 'all';
-        let searchTerm = '';
-
-        function renderQuests() {
-            const grid = document.getElementById('questGrid');
-            grid.innerHTML = '';
-
-            const filtered = quests.filter(quest => {
-                const matchFilter = currentFilter === 'all' || quest.sea === currentFilter;
-                const matchCategory = currentCategory === 'all' || quest.category === currentCategory;
-                const matchSearch = quest.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                  quest.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                  quest.reward.some(r => r.toLowerCase().includes(searchTerm.toLowerCase()));
-                return matchFilter && matchCategory && matchSearch;
-            });
-
-            if (filtered.length === 0) {
-                grid.innerHTML = '<div class="no-results">Tidak ada quest yang ditemukan. Coba kata kunci lain.</div>';
-                return;
-            }
-
-            filtered.forEach(quest => {
-                const card = document.createElement('div');
-                card.className = 'quest-card';
-                card.innerHTML = `
-                    <div class="quest-header">
-                        <div>
-                            <div class="quest-title">
-                                ${quest.name}
-                                <span class="difficulty-badge difficulty-${quest.difficulty}">${quest.difficulty.toUpperCase()}</span>
-                            </div>
-                            <span class="quest-sea">${quest.sea.replace('sea', 'Sea ')}</span>
-                        </div>
-                    </div>
-                    <div class="quest-info">
-                        <div class="info-row">
-                            <span class="info-label">📍 Lokasi:</span>
-                            <span>${quest.location}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">👤 NPC:</span>
-                            <span>${quest.npc}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">📊 Level:</span>
-                            <span>${quest.level}</span>
-                        </div>
-                    </div>
-                    <div class="quest-reward">
-                        ${quest.reward.map(r => `<span class="reward-tag">${r}</span>`).join('')}
-                    </div>
-                    <button class="view-guide-btn" onclick="openModal(${quest.id})">View Guide</button>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function openModal(id) {
-            const quest = quests.find(q => q.id === id);
-            if (!quest) return;
-
-            document.getElementById('modalTitle').textContent = quest.name;
-            
-            document.getElementById('modalStats').innerHTML = `
-                <div class="stat-item">
-                    <div class="stat-icon">📍</div>
-                    <div class="stat-info">
-                        <span class="stat-label">Lokasi</span>
-                        <span class="stat-value">${quest.location}</span>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">🌊</div>
-                    <div class="stat-info">
-                        <span class="stat-label">Sea</span>
-                        <span class="stat-value">${quest.sea.replace('sea', 'Sea ')}</span>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">📊</div>
-                    <div class="stat-info">
-                        <span class="stat-label">Level</span>
-                        <span class="stat-value">${quest.level}</span>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">👤</div>
-                    <div class="stat-info">
-                        <span class="stat-label">NPC</span>
-                        <span class="stat-value">${quest.npc}</span>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('modalBody').innerHTML = `
-                <div class="guide-section">
-                    <h3>🎯 Reward</h3>
-                    <div class="quest-reward" style="margin: 0;">
-                        ${quest.reward.map(r => `<span class="reward-tag">${r}</span>`).join('')}
-                    </div>
-                </div>
+            async simulateAPIFetch(endpoint) {
+                // In real implementation, fetch from:
+                // - Roblox API for game updates
+                // - Blox Fruits Wiki API
+                // - Community data sources
                 
-                <div class="guide-section">
-                    <h3>📋 Cara Menyelesaikan Quest:</h3>
-                    <ol>
-                        ${quest.steps.map(step => `<li>${step}</li>`).join('')}
-                    </ol>
-                </div>
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(this.getFallbackData(endpoint));
+                    }, 500);
+                });
+            },
 
-                <div class="tip-box">
-                    <strong>💡 Tips:</strong> ${quest.tips}
-                </div>
-            `;
+            getFallbackData(endpoint) {
+                const data = {
+                    tierlist: {
+                        lastUpdated: new Date().toISOString(),
+                        tiers: {
+                            S: [
+                                { name: 'Leopard', type: 'Beast', icon: '🐆' },
+                                { name: 'Dragon', type: 'Beast', icon: '🐉' },
+                                { name: 'Venom', type: 'Natural', icon: '🐍' },
+                                { name: 'Dough', type: 'Elemental', icon: '🍩' },
+                                { name: 'T-Rex', type: 'Beast', icon: '🦖' }
+                            ],
+                            A: [
+                                { name: 'Mammoth', type: 'Beast', icon: '🦣' },
+                                { name: 'Spirit', type: 'Natural', icon: '👻' },
+                                { name: 'Control', type: 'Natural', icon: '🎮' },
+                                { name: 'Shadow', type: 'Natural', icon: '👤' },
+                                { name: 'Rumble', type: 'Elemental', icon: '⚡' }
+                            ],
+                            B: [
+                                { name: 'Phoenix', type: 'Beast', icon: '🔥' },
+                                { name: 'Portal', type: 'Natural', icon: '🌀' },
+                                { name: 'Gravity', type: 'Natural', icon: '🌍' },
+                                { name: 'Pain', type: 'Natural', icon: '💀' }
+                            ],
+                            C: [
+                                { name: 'Quake', type: 'Natural', icon: '💢' },
+                                { name: 'Blizzard', type: 'Elemental', icon: '❄️' },
+                                { name: 'Light', type: 'Elemental', icon: '💡' },
+                                { name: 'Flame', type: 'Elemental', icon: '🔥' }
+                            ],
+                            D: [
+                                { name: 'Ice', type: 'Elemental', icon: '🧊' },
+                                { name: 'Dark', type: 'Elemental', icon: '🌑' },
+                                { name: 'Sand', type: 'Elemental', icon: '🏜️' }
+                            ]
+                        }
+                    },
+                    updates: [
+                        {
+                            date: '2026-03-10',
+                            version: 'Update 24',
+                            title: 'New Fruit: T-Rex & Mammoth Rework',
+                            changes: [
+                                { type: 'added', text: 'T-Rex Fruit added to game' },
+                                { type: 'added', text: 'New Island: Prehistoric Island' },
+                                { type: 'fixed', text: 'Mammoth transformation bug fixed' },
+                                { type: 'removed', text: 'Old Dinosaur model deprecated' }
+                            ]
+                        },
+                        {
+                            date: '2026-02-28',
+                            version: 'Update 23.5',
+                            title: 'PvP Balance Patch',
+                            changes: [
+                                { type: 'fixed', text: 'Leopard speed reduced by 10%' },
+                                { type: 'added', text: 'New combo extenders for Sword users' },
+                                { type: 'fixed', text: 'Dragon flight stamina cost increased' }
+                            ]
+                        }
+                    ],
+                    howto: [
+                        {
+                            title: 'Random Fruit Dealer',
+                            icon: '🎲',
+                            desc: 'Beli buah random dari dealer dengan harga:',
+                            details: ['Common: 50k Beli', 'Uncommon: 100k Beli', 'Rare: 300k Beli', 'Legendary: 1M Beli', 'Mythical: 3M Beli']
+                        },
+                        {
+                            title: 'Fruit Notifier',
+                            icon: '🔔',
+                            desc: 'Gunakan Fruit Notifier Gamepass (2,700 Robux):',
+                            details: ['Notifikasi saat buah spawn', 'Lokasi exact ditampilkan', 'Cooldown 4 jam', 'Works di semua sea']
+                        },
+                        {
+                            title: 'Trading',
+                            icon: '🤝',
+                            desc: 'Trade dengan pemain lain:',
+                            details: ['Level 300+ untuk trade', 'Gunakan Trade Hub', 'Check value di Discord', 'Hati-hati scammer']
+                        },
+                        {
+                            title: 'Dungeon & Raid',
+                            icon: '⚔️',
+                            desc: 'Dapatkan buah dari aktivitas:',
+                            details: ['Raid reward (5% chance)', 'Dungeon chest', 'Sea Beast drop', 'Boss drop (1-3%)']
+                        }
+                    ],
+                    beginner: [
+                        {
+                            title: 'Pilih Race',
+                            icon: '👤',
+                            desc: 'Race menentukan playstyle kamu:',
+                            details: ['Human: Balance', 'Shark: Tanky di air', 'Angel: Regenerasi', 'Rabbit: Speed', 'Ghoul: Life steal', 'Cyborg: Energy']
+                        },
+                        {
+                            title: 'Leveling Cepat',
+                            icon: '⬆️',
+                            desc: 'Naik level 0-700 dalam 2 jam:',
+                            details: ['Ikuti main quest', 'Grind di bandit', 'Join raid party', 'Gunakan 2x EXP code']
+                        },
+                        {
+                            title: 'Stats Build',
+                            icon: '📊',
+                            desc: 'Alokasi stats yang benar:',
+                            details: ['Melee: 2550 (max)', 'Defense: 2550 (max)', 'Sword/Gun/Fruit: sisanya', 'Jangan campur-campur!']
+                        },
+                        {
+                            title: 'Haki Awakening',
+                            icon: '👁️',
+                            desc: 'Unlock full potential:',
+                            details: ['Buso Haki: hit NPC sampe lvl 300', 'Kenbun: dodge 5000x', 'Haoshoku: rare drop']
+                        }
+                    ],
+                    pvp: {
+                        moves: ['M1', 'Z', 'X', 'C', 'V', 'F', 'Sword Z', 'Sword X', 'Gun Z', 'Gun X', 'Dash', 'Jump'],
+                        tips: [
+                            { number: '01', title: 'Kenali Frame Data', desc: 'Setiap move punya startup dan endlag. Pelajari timing untuk punish.' },
+                            { number: '02', title: 'Movement is Key', desc: 'Dash cancel dan jump reset adalah fundamental. Jangan spam skill.' },
+                            { number: '03', title: 'Combo Route', desc: 'Start dengan stun (Z move) → Damage (X/C) → Finisher (V).' },
+                            { number: '04', title: 'Bait & Punish', desc: 'Provokasi lawan pakai dash, lalu counter saat mereka miss.' },
+                            { number: '05', title: 'Fruit Mastery', desc: 'Kuasai 1 fruit sampai perfect sebelum ganti. Muscle memory penting.' }
+                        ]
+                    }
+                };
+                return data[endpoint] || {};
+            }
+        };
 
-            document.getElementById('questModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // UI Functions
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
         }
 
-        function closeModal() {
-            document.getElementById('questModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Event Listeners
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            searchTerm = e.target.value;
-            renderQuests();
-        });
-
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
-                renderQuests();
-            });
-        });
-
-        document.querySelectorAll('.category-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                currentCategory = tab.dataset.category;
-                renderQuests();
-            });
-        });
-
-        // Close modal on outside click
-        document.getElementById('questModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('questModal')) {
-                closeModal();
-            }
-        });
-
-        // Close modal on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-
-        // Navigation
-        function showSection(section) {
-            if (section === 'home') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else if (section === 'quests') {
-                document.querySelector('.controls').scrollIntoView({ behavior: 'smooth' });
-            } else if (section === 'about') {
-                alert('VINCEGUIDE - Blox Fruits Quest Guide\n\nWebsite ini dibuat untuk membantu player Blox Fruits menyelesaikan quest penting dengan mudah.\n\nFitur:\n- 25+ Quest Guide\n- Filter berdasarkan Sea dan Kategori\n- Detail langkah-langkah lengkap\n- Tips dan trik untuk setiap quest\n\nSelamat bermain! ⚔️');
-            }
-        }
-
-        // Initial render
-        renderQuests();
-    </script>
-</body>
-</html>
+        function renderTierList(data) {
+            const container = document.getElementById('tierContainer');
+            container.innerHTML = '';
+            
