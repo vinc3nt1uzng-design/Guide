@@ -1,5 +1,4 @@
-
-html_content = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -23,666 +22,136 @@ html_content = '''<!DOCTYPE html>
             --lab-green: #d1fae5;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Space Grotesk', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Space Grotesk', sans-serif; }
 
         /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            padding: 1rem 2rem;
-            transition: all 0.3s ease;
-        }
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; padding: 1rem 2rem; }
+        .nav-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; cursor: pointer; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-light); font-weight: 500; transition: color 0.3s; cursor: pointer; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
 
-        .nav-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-light);
-            font-weight: 500;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--primary);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 6rem 2rem 2rem;
-        }
+        /* Container */
+        .container { max-width: 1400px; margin: 0 auto; padding: 6rem 2rem 2rem; }
 
         /* Sections */
-        .section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
+        .section { display: none; animation: fadeIn 0.5s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .section.active {
-            display: block;
-        }
+        /* Home */
+        .hero { text-align: center; padding: 4rem 0; position: relative; }
+        .hero::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, var(--lab-blue) 0%, transparent 70%); z-index: -1; animation: pulse 4s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); } 50% { opacity: 0.8; transform: translateX(-50%) scale(1.1); } }
+        .hero h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.25rem; color: var(--text-light); max-width: 600px; margin: 0 auto 2rem; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(14, 165, 233, 0.4); }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Categories */
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .category-card { background: var(--card); border: 2px solid var(--border); border-radius: 20px; padding: 2rem 1rem; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .category-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--lab-blue), var(--lab-green)); opacity: 0; transition: opacity 0.3s; z-index: 0; }
+        .category-card:hover::before, .category-card.selected::before { opacity: 1; }
+        .category-card:hover, .category-card.selected { border-color: var(--primary); transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .category-icon { font-size: 3rem; margin-bottom: 0.5rem; position: relative; z-index: 1; transition: transform 0.3s; }
+        .category-card:hover .category-icon { transform: scale(1.2); }
+        .category-name { font-weight: 600; position: relative; z-index: 1; }
 
-        /* Home Section */
-        .hero {
-            text-align: center;
-            padding: 4rem 0;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--lab-blue) 0%, transparent 70%);
-            z-index: -1;
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
-            50% { opacity: 0.8; transform: translateX(-50%) scale(1.1); }
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.4);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Categories Section */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .category-card {
-            background: var(--card);
-            border: 2px solid var(--border);
-            border-radius: 20px;
-            padding: 2rem 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--lab-blue), var(--lab-green));
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 0;
-        }
-
-        .category-card:hover::before, .category-card.selected::before {
-            opacity: 1;
-        }
-
-        .category-card:hover, .category-card.selected {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .category-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s;
-        }
-
-        .category-card:hover .category-icon {
-            transform: scale(1.2);
-        }
-
-        .category-name {
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Filters Section */
-        .filters-container {
-            background: var(--card);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-
-        .filter-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .filter-label {
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            display: block;
-            color: var(--text);
-        }
-
-        .filter-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .filter-chip {
-            padding: 0.5rem 1rem;
-            background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .filter-chip:hover, .filter-chip.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
+        /* Filters */
+        .filters-container { background: var(--card); border-radius: 20px; padding: 2rem; margin: 2rem 0; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .filter-group { margin-bottom: 1.5rem; }
+        .filter-label { font-weight: 600; margin-bottom: 0.75rem; display: block; color: var(--text); }
+        .filter-options { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .filter-chip { padding: 0.5rem 1rem; background: var(--bg); border: 2px solid var(--border); border-radius: 50px; cursor: pointer; transition: all 0.3s; font-size: 0.9rem; }
+        .filter-chip:hover, .filter-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
 
         /* Recipes Grid */
-        .recipes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
+        .recipes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .recipe-card { background: var(--card); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); transition: all 0.3s ease; cursor: pointer; border: 1px solid var(--border); }
+        .recipe-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+        .recipe-image { width: 100%; height: 200px; object-fit: cover; transition: transform 0.3s; }
+        .recipe-card:hover .recipe-image { transform: scale(1.05); }
+        .recipe-content { padding: 1.5rem; }
+        .recipe-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+        .recipe-meta { display: flex; gap: 1rem; color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem; }
+        .recipe-meta span { display: flex; align-items: center; gap: 0.25rem; }
+        .recipe-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag { padding: 0.25rem 0.75rem; background: var(--lab-blue); color: var(--primary); border-radius: 50px; font-size: 0.8rem; font-weight: 500; }
 
-        .recipe-card {
-            background: var(--card);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid var(--border);
-        }
+        /* Detail Section - FIXED */
+        .detail-wrapper { max-width: 800px; margin: 0 auto; padding: 1rem 0; }
+        .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; color: var(--text-light); cursor: pointer; transition: color 0.3s; font-weight: 500; }
+        .back-btn:hover { color: var(--primary); }
+        
+        .detail-hero { background: var(--card); border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-lg); margin-bottom: 2rem; border: 1px solid var(--border); }
+        .detail-image-container { width: 100%; height: 350px; overflow: hidden; }
+        .detail-image { width: 100%; height: 100%; object-fit: cover; }
+        .detail-hero-content { padding: 1.5rem 2rem; }
+        .detail-title { font-size: 2rem; margin-bottom: 1rem; color: var(--text); }
+        .detail-meta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .meta-badge { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--lab-blue); border-radius: 50px; font-size: 0.9rem; color: var(--primary); font-weight: 500; }
 
-        .recipe-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-        }
+        .detail-body { display: flex; flex-direction: column; gap: 1.5rem; }
+        .detail-card { background: var(--card); border-radius: 20px; padding: 1.5rem; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .detail-section-title { font-size: 1.25rem; margin-bottom: 1rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--lab-blue); }
 
-        .recipe-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
+        .ingredients-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .ingredients-list li { padding: 0.75rem 1rem; background: var(--bg); border-radius: 10px; display: flex; align-items: center; gap: 0.5rem; border-left: 3px solid var(--primary); }
+        .ingredients-list li::before { content: '⚗️'; }
 
-        .recipe-card:hover .recipe-image {
-            transform: scale(1.05);
-        }
+        .steps-list { counter-reset: step; list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+        .steps-list li { position: relative; padding-left: 3rem; padding-top: 0.25rem; }
+        .steps-list li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 0; width: 2rem; height: 2rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
 
-        .recipe-content {
-            padding: 1.5rem;
-        }
+        .tips-card { background: linear-gradient(135deg, var(--lab-green), var(--lab-blue)); border-radius: 16px; padding: 1.5rem; border: 2px solid var(--secondary); }
+        .tips-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .tips-header h4 { color: var(--secondary); font-size: 1.1rem; }
+        .tips-icon { width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .tips-text { color: var(--text); line-height: 1.6; }
 
-        .recipe-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
+        /* Random Section */
+        .random-section { text-align: center; padding: 3rem 2rem; background: linear-gradient(135deg, var(--lab-blue), var(--lab-green)); border-radius: 24px; margin: 2rem 0; }
+        .random-section h2 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+        .btn-random { padding: 1rem 2rem; background: linear-gradient(135deg, var(--accent), #f97316); color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3); display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; }
+        .btn-random:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4); }
 
-        .recipe-meta {
-            display: flex;
-            gap: 1rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
+        .section-title { font-size: 1.75rem; margin-bottom: 0.5rem; text-align: center; }
+        .section-subtitle { text-align: center; color: var(--text-light); margin-bottom: 1.5rem; }
 
-        .recipe-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
+        .loading { display: none; text-align: center; padding: 3rem; }
+        .loading.active { display: block; }
+        .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        .recipe-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
+        .empty-state { text-align: center; padding: 3rem 2rem; color: var(--text-light); }
+        .empty-state-icon { font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.5; }
 
-        .tag {
-            padding: 0.25rem 0.75rem;
-            background: var(--lab-blue);
-            color: var(--primary);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        /* Detail Section */
-        .detail-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .detail-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .detail-image {
-            width: 100%;
-            max-width: 400px;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 20px;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .detail-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .detail-meta {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: var(--lab-blue);
-            border-radius: 50px;
-        }
-
-        .detail-content {
-            background: var(--card);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-        }
-
-        .detail-section {
-            margin-bottom: 2rem;
-        }
-
-        .detail-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .ingredients-list {
-            list-style: none;
-        }
-
-        .ingredients-list li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .ingredients-list li::before {
-            content: '⚗️';
-        }
-
-        .steps-list {
-            counter-reset: step;
-            list-style: none;
-        }
-
-        .steps-list li {
-            position: relative;
-            padding-left: 3rem;
-            padding-bottom: 1.5rem;
-            border-left: 3px solid var(--lab-blue);
-            margin-left: 1rem;
-        }
-
-        .steps-list li::before {
-            counter-increment: step;
-            content: counter(step);
-            position: absolute;
-            left: -1rem;
-            top: 0;
-            width: 2rem;
-            height: 2rem;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-
-        .tips-box {
-            background: linear-gradient(135deg, var(--lab-green), var(--lab-blue));
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .tips-box h4 {
-            margin-bottom: 0.5rem;
-            color: var(--secondary);
-        }
-
-        /* Random Button */
-        .random-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, var(--lab-blue), var(--lab-green));
-            border-radius: 30px;
-            margin: 3rem 0;
-        }
-
-        .random-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .btn-random {
-            padding: 1.25rem 2.5rem;
-            background: linear-gradient(135deg, var(--accent), #f97316);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .btn-random:hover {
-            transform: translateY(-5px) rotate(-2deg);
-            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.4);
-        }
-
-        /* Back Button */
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            color: var(--text-light);
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .back-btn:hover {
-            color: var(--primary);
-        }
-
-        /* Section Title */
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 3rem;
-        }
-
-        .loading.active {
-            display: block;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid var(--border);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-light);
-        }
-
-        .empty-state-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
+        /* Bubbles */
+        .bubbles { position: fixed; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: -1; overflow: hidden; }
+        .bubble { position: absolute; bottom: -100px; background: rgba(14, 165, 233, 0.1); border-radius: 50%; animation: rise 15s infinite ease-in; }
+        @keyframes rise { 0% { bottom: -100px; transform: translateX(0) scale(1); } 50% { transform: translateX(100px) scale(1.1); } 100% { bottom: 100vh; transform: translateX(-200px) scale(0.8); } }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .categories-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .recipes-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .detail-title {
-                font-size: 1.75rem;
-            }
-        }
-
-        /* Animations */
-        .fade-in {
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* Floating Bubbles Background */
-        .bubbles {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .bubble {
-            position: absolute;
-            bottom: -100px;
-            background: rgba(14, 165, 233, 0.1);
-            border-radius: 50%;
-            animation: rise 15s infinite ease-in;
-        }
-
-        @keyframes rise {
-            0% {
-                bottom: -100px;
-                transform: translateX(0) scale(1);
-            }
-            50% {
-                transform: translateX(100px) scale(1.1);
-            }
-            100% {
-                bottom: 100vh;
-                transform: translateX(-200px) scale(0.8);
-            }
+            .hero h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+            .categories-grid { grid-template-columns: repeat(2, 1fr); }
+            .recipes-grid { grid-template-columns: 1fr; }
+            .detail-image-container { height: 250px; }
+            .detail-title { font-size: 1.5rem; }
+            .detail-wrapper { padding: 0.5rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Background Bubbles -->
     <div class="bubbles" id="bubbles"></div>
 
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-content">
             <a class="logo" onclick="showSection('home')">
@@ -699,14 +168,13 @@ html_content = '''<!DOCTYPE html>
     </nav>
 
     <div class="container">
-        <!-- Home Section -->
+        <!-- Home -->
         <section id="home" class="section active">
             <div class="hero">
                 <h1>DrinxLab</h1>
-                <p>Temukan Resep Minuman Favoritmu! Laboratorium kreatif untuk menciptakan minuman terbaik. Dari kopi klasik hingga mocktail inovatif, semua ada di sini.</p>
+                <p>Temukan Resep Minuman Favoritmu! Laboratorium kreatif untuk menciptakan minuman terbaik.</p>
                 <button class="btn-primary" onclick="showSection('categories')">
-                    <span>🚀</span>
-                    Mulai Cari Minuman
+                    <span>🚀</span> Mulai Cari Minuman
                 </button>
             </div>
 
@@ -714,27 +182,24 @@ html_content = '''<!DOCTYPE html>
                 <h2>🎲 Bingung Mau Pilih Apa?</h2>
                 <p>Biarkan DrinxLab yang memutuskan untukmu!</p>
                 <button class="btn-random" onclick="randomDrink()">
-                    <span>🎰</span>
-                    Surprise Me!
+                    <span>🎰</span> Surprise Me!
                 </button>
             </div>
         </section>
 
-        <!-- Categories Section -->
+        <!-- Categories -->
         <section id="categories" class="section">
             <h2 class="section-title">Pilih Kategori Minuman</h2>
             <p class="section-subtitle">Pilih satu atau lebih kategori untuk menemukan resep yang kamu inginkan</p>
             
-            <div class="categories-grid" id="categoriesGrid">
-                <!-- Categories will be inserted here -->
-            </div>
+            <div class="categories-grid" id="categoriesGrid"></div>
 
             <div class="filters-container">
                 <h3 style="margin-bottom: 1.5rem;">🔬 Filter Tambahan</h3>
                 
                 <div class="filter-group">
                     <span class="filter-label">Suhu</span>
-                    <div class="filter-options" id="tempFilters">
+                    <div class="filter-options">
                         <span class="filter-chip" data-filter="temp" data-value="hot">☕ Panas</span>
                         <span class="filter-chip" data-filter="temp" data-value="cold">🧊 Dingin</span>
                     </div>
@@ -742,7 +207,7 @@ html_content = '''<!DOCTYPE html>
 
                 <div class="filter-group">
                     <span class="filter-label">Rasa</span>
-                    <div class="filter-options" id="tasteFilters">
+                    <div class="filter-options">
                         <span class="filter-chip" data-filter="taste" data-value="sweet">🍯 Manis</span>
                         <span class="filter-chip" data-filter="taste" data-value="less-sweet">🌿 Tidak terlalu manis</span>
                     </div>
@@ -750,7 +215,7 @@ html_content = '''<!DOCTYPE html>
 
                 <div class="filter-group">
                     <span class="filter-label">Tingkat Kesulitan</span>
-                    <div class="filter-options" id="diffFilters">
+                    <div class="filter-options">
                         <span class="filter-chip" data-filter="difficulty" data-value="easy">⭐ Mudah</span>
                         <span class="filter-chip" data-filter="difficulty" data-value="medium">⭐⭐ Medium</span>
                         <span class="filter-chip" data-filter="difficulty" data-value="hard">⭐⭐⭐ Advanced</span>
@@ -759,25 +224,24 @@ html_content = '''<!DOCTYPE html>
 
                 <div class="filter-group">
                     <span class="filter-label">Waktu Pembuatan</span>
-                    <div class="filter-options" id="timeFilters">
-                        <span class="filter-chip" data-filter="time" data-value="quick">⚡ &lt; 5 menit</span>
+                    <div class="filter-options">
+                        <span class="filter-chip" data-filter="time" data-value="quick">⚡ < 5 menit</span>
                         <span class="filter-chip" data-filter="time" data-value="medium">⏱️ 5-15 menit</span>
-                        <span class="filter-chip" data-filter="time" data-value="long">⏳ &gt; 15 menit</span>
+                        <span class="filter-chip" data-filter="time" data-value="long">⏳ > 15 menit</span>
                     </div>
                 </div>
 
                 <button class="btn-primary" onclick="applyFilters()" style="width: 100%; justify-content: center; margin-top: 1rem;">
-                    <span>🔍</span>
-                    Cari Resep
+                    <span>🔍</span> Cari Resep
                 </button>
             </div>
         </section>
 
-        <!-- Recipes Section -->
+        <!-- Recipes -->
         <section id="recipes" class="section">
-            <span class="back-btn" onclick="showSection('categories')">
+            <div class="back-btn" onclick="showSection('categories')">
                 <span>←</span> Kembali ke Filter
-            </span>
+            </div>
             <h2 class="section-title">Hasil Pencarian</h2>
             <div id="recipesContainer">
                 <div class="recipes-grid" id="recipesGrid"></div>
@@ -793,27 +257,23 @@ html_content = '''<!DOCTYPE html>
             </div>
         </section>
 
-        <!-- Detail Section -->
+        <!-- Detail -->
         <section id="detail" class="section">
-            <span class="back-btn" onclick="showSection('recipes')">
-                <span>←</span> Kembali ke Daftar
-            </span>
-            <div class="detail-container" id="detailContainer">
-                <!-- Detail content will be inserted here -->
+            <div class="detail-wrapper" id="detailContainer">
+                <!-- Content inserted by JS -->
             </div>
         </section>
     </div>
 
     <script>
-        // Data
         const categories = [
-            { id: 'coffee', name: 'Coffee', icon: '☕', color: '#8B4513' },
-            { id: 'tea', name: 'Tea', icon: '🍵', color: '#4ade80' },
-            { id: 'smoothie', name: 'Smoothie', icon: '🍓', color: '#f43f5e' },
-            { id: 'juice', name: 'Juice', icon: '🍊', color: '#f97316' },
-            { id: 'milkshake', name: 'Milkshake', icon: '🥛', color: '#8b5cf6' },
-            { id: 'mocktail', name: 'Mocktail', icon: '🍹', color: '#06b6d4' },
-            { id: 'healthy', name: 'Healthy Drinks', icon: '🥬', color: '#10b981' }
+            { id: 'coffee', name: 'Coffee', icon: '☕' },
+            { id: 'tea', name: 'Tea', icon: '🍵' },
+            { id: 'smoothie', name: 'Smoothie', icon: '🍓' },
+            { id: 'juice', name: 'Juice', icon: '🍊' },
+            { id: 'milkshake', name: 'Milkshake', icon: '🥛' },
+            { id: 'mocktail', name: 'Mocktail', icon: '🍹' },
+            { id: 'healthy', name: 'Healthy Drinks', icon: '🥬' }
         ];
 
         const recipes = [
@@ -821,356 +281,139 @@ html_content = '''<!DOCTYPE html>
                 id: 1,
                 name: 'Espresso Tonic',
                 category: 'coffee',
-                image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400',
+                image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800',
                 temp: 'cold',
                 taste: 'less-sweet',
                 difficulty: 'easy',
                 time: 'quick',
                 timeText: '3 menit',
                 tags: ['Dingin', 'Segar', 'Kafein'],
-                ingredients: [
-                    '1 shot espresso (30ml)',
-                    '150ml tonic water',
-                    'Es batu secukupnya',
-                    'Slice lemon',
-                    'Sedikit gula aren (opsional)'
-                ],
-                steps: [
-                    'Siapkan gelas tinggi dan isi dengan es batu penuh',
-                    'Tuangkan tonic water ke dalam gelas',
-                    'Seduh espresso dalam shot glass terpisah',
-                    'Tuangkan espresso perlahan ke atas tonic water',
-                    'Hias dengan slice lemon dan aduk perlahan sebelum minum'
-                ],
+                ingredients: ['1 shot espresso (30ml)', '150ml tonic water', 'Es batu secukupnya', 'Slice lemon', 'Sedikit gula aren (opsional)'],
+                steps: ['Siapkan gelas tinggi dan isi dengan es batu penuh', 'Tuangkan tonic water ke dalam gelas', 'Seduh espresso dalam shot glass terpisah', 'Tuangkan espresso perlahan ke atas tonic water', 'Hias dengan slice lemon dan aduk perlahan sebelum minum'],
                 tips: 'Tuangkan espresso perlahan agar menciptakan lapisan yang cantik. Gunakan tonic water berkualitas untuk rasa terbaik.'
             },
             {
                 id: 2,
                 name: 'Matcha Latte',
                 category: 'tea',
-                image: 'https://images.unsplash.com/photo-1515823662972-da6a2e4d3114?w=400',
+                image: 'https://images.unsplash.com/photo-1515823662972-da6a2e4d3114?w=800',
                 temp: 'hot',
                 taste: 'less-sweet',
                 difficulty: 'medium',
                 time: 'medium',
                 timeText: '8 menit',
                 tags: ['Panas', 'Sehat', 'Antioxidant'],
-                ingredients: [
-                    '2gr matcha powder',
-                    '200ml susu UHT (bisa oat milk)',
-                    '30ml air panas (80°C)',
-                    '1 sdt madu atau gula (opsional)',
-                    'Sedikit vanila extract'
-                ],
-                steps: [
-                    'Ayak matcha powder ke dalam mangkuk',
-                    'Tambahkan air panas dan aduk dengan chasen (whisk khusus) hingga berbusa',
-                    'Panaskan susu hingga 60-70°C, jangan sampai mendidih',
-                    'Froth susu menggunakan frother atau kocok manual',
-                    'Tuang matcha ke gelas, tambahkan madu, lalu tuang susu perlahan'
-                ],
+                ingredients: ['2gr matcha powder', '200ml susu UHT (bisa oat milk)', '30ml air panas (80°C)', '1 sdt madu atau gula (opsional)', 'Sedikit vanila extract'],
+                steps: ['Ayak matcha powder ke dalam mangkuk', 'Tambahkan air panas dan aduk dengan chasen hingga berbusa', 'Panaskan susu hingga 60-70°C, jangan sampai mendidih', 'Froth susu menggunakan frother atau kocok manual', 'Tuang matcha ke gelas, tambahkan madu, lalu tuang susu perlahan'],
                 tips: 'Suhu air untuk matcha tidak boleh terlalu panas (max 80°C) agar tidak pahit. Gunakan chasen untuk hasil terbaik.'
             },
             {
                 id: 3,
                 name: 'Berry Blast Smoothie',
                 category: 'smoothie',
-                image: 'https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=400',
+                image: 'https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=800',
                 temp: 'cold',
                 taste: 'sweet',
                 difficulty: 'easy',
                 time: 'quick',
                 timeText: '5 menit',
                 tags: ['Dingin', 'Manis', 'Vitamin C'],
-                ingredients: [
-                    '100gr mixed berries (frozen)',
-                    '1 pisang beku',
-                    '150ml yogurt plain',
-                    '100ml susu almond',
-                    '1 sdm chia seeds',
-                    'Madu secukupnya'
-                ],
-                steps: [
-                    'Keluarkan buah beku dari freezer 5 menit sebelum blending',
-                    'Masukkan semua bahan ke blender',
-                    'Blend hingga smooth dan creamy',
-                    'Tambahkan madu jika kurang manis',
-                    'Tuang ke gelas dan sajikan segera'
-                ],
+                ingredients: ['100gr mixed berries (frozen)', '1 pisang beku', '150ml yogurt plain', '100ml susu almond', '1 sdm chia seeds', 'Madu secukupnya'],
+                steps: ['Keluarkan buah beku dari freezer 5 menit sebelum blending', 'Masukkan semua bahan ke blender', 'Blend hingga smooth dan creamy', 'Tambahkan madu jika kurang manis', 'Tuang ke gelas dan sajikan segera'],
                 tips: 'Gunakan buah beku untuk tekstur yang lebih creamy seperti es krim. Jangan tambahkan es batu agar tidak mencair.'
             },
             {
                 id: 4,
                 name: 'Orange Sunrise Juice',
                 category: 'juice',
-                image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=400',
+                image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=800',
                 temp: 'cold',
                 taste: 'sweet',
                 difficulty: 'easy',
                 time: 'quick',
                 timeText: '5 menit',
                 tags: ['Dingin', 'Segar', 'Vitamin C'],
-                ingredients: [
-                    '3 jeruk besar (sekitar 500gr)',
-                    '1 wortel kecil',
-                    '1 cm jahe',
-                    'Sedikit garam',
-                    'Es batu'
-                ],
-                steps: [
-                    'Kupas jeruk dan wortel, pastikan tidak ada kulit putihnya',
-                    'Cuci jahe dan iris kecil',
-                    'Masukkan semua bahan ke juicer',
-                    'Tambahkan sedikit garam untuk memperkuat rasa manis',
-                    'Sajikan dengan es batu'
-                ],
+                ingredients: ['3 jeruk besar (sekitar 500gr)', '1 wortel kecil', '1 cm jahe', 'Sedikit garam', 'Es batu'],
+                steps: ['Kupas jeruk dan wortel, pastikan tidak ada kulit putihnya', 'Cuci jahe dan iris kecil', 'Masukkan semua bahan ke juicer', 'Tambahkan sedikit garam untuk memperkuat rasa manis', 'Sajikan dengan es batu'],
                 tips: 'Gunakan jeruk yang berat untuk banyak airnya. Peras sisa ampas untuk mendapatkan lebih banyak jus.'
             },
             {
                 id: 5,
                 name: 'Vanilla Milkshake',
                 category: 'milkshake',
-                image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400',
+                image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800',
                 temp: 'cold',
                 taste: 'sweet',
                 difficulty: 'easy',
                 time: 'quick',
                 timeText: '3 menit',
                 tags: ['Dingin', 'Creamy', 'Dessert'],
-                ingredients: [
-                    '3 scoop es krim vanilla',
-                    '200ml susu full cream dingin',
-                    '1 sdt pasta vanila',
-                    'Whipped cream untuk topping',
-                    'Cherry dan sprinkle untuk hiasan'
-                ],
-                steps: [
-                    'Dinginkan gelas terlebih dahulu di freezer',
-                    'Masukkan es krim, susu, dan vanila ke blender',
-                    'Blend 30 detik hingga tercampur (jangan terlalu lama)',
-                    'Tuang ke gelas dingin',
-                    'Tambahkan whipped cream dan hiasan'
-                ],
+                ingredients: ['3 scoop es krim vanilla', '200ml susu full cream dingin', '1 sdt pasta vanila', 'Whipped cream untuk topping', 'Cherry dan sprinkle untuk hiasan'],
+                steps: ['Dinginkan gelas terlebih dahulu di freezer', 'Masukkan es krim, susu, dan vanila ke blender', 'Blend 30 detik hingga tercampur (jangan terlalu lama)', 'Tuang ke gelas dingin', 'Tambahkan whipped cream dan hiasan'],
                 tips: 'Jangan over-blend agar tekstur tetap thick. Gunakan es krim premium untuk rasa terbaik.'
             },
             {
                 id: 6,
                 name: 'Virgin Mojito',
                 category: 'mocktail',
-                image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400',
+                image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800',
                 temp: 'cold',
                 taste: 'less-sweet',
                 difficulty: 'medium',
                 time: 'medium',
                 timeText: '7 menit',
                 tags: ['Dingin', 'Segar', 'Minty'],
-                ingredients: [
-                    '10 daun mint segar',
-                    '1/2 lime (potong wedges)',
-                    '2 sdt gula pasir',
-                    'Soda water',
-                    'Es batu',
-                    'Slice lime untuk hiasan'
-                ],
-                steps: [
-                    'Masukkan mint, lime wedges, dan gula ke gelas',
-                    'Muddle (tekan-tekan) dengan lembut, jangan hancurkan mint',
-                    'Isi gelas dengan es batu penuh',
-                    'Tuang soda water hingga penuh',
-                    'Aduk perlahan dan hias dengan mint serta lime'
-                ],
+                ingredients: ['10 daun mint segar', '1/2 lime (potong wedges)', '2 sdt gula pasir', 'Soda water', 'Es batu', 'Slice lime untuk hiasan'],
+                steps: ['Masukkan mint, lime wedges, dan gula ke gelas', 'Muddle (tekan-tekan) dengan lembut, jangan hancurkan mint', 'Isi gelas dengan es batu penuh', 'Tuang soda water hingga penuh', 'Aduk perlahan dan hias dengan mint serta lime'],
                 tips: 'Jangan muddle mint terlalu keras agar tidak pahit. Gunakan daun mint yang segar dan beraroma.'
             },
             {
                 id: 7,
                 name: 'Green Detox Juice',
                 category: 'healthy',
-                image: 'https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=400',
+                image: 'https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=800',
                 temp: 'cold',
                 taste: 'less-sweet',
                 difficulty: 'easy',
                 time: 'quick',
                 timeText: '5 menit',
                 tags: ['Sehat', 'Detox', 'Fiber'],
-                ingredients: [
-                    '2 batang seledri',
-                    '1/2 mentimun',
-                    '1 apel hijau',
-                    '1/2 lemon',
-                    '1 cm jahe',
-                    'Segenggam bayam'
-                ],
-                steps: [
-                    'Cuci bersih semua sayur dan buah',
-                    'Potong-potong agar muat di juicer',
-                    'Jus semua bahan kecuali lemon',
-                    'Peras lemon di akhir untuk kesegaran',
-                    'Saring jika ingin tekstur halus, aduk dan sajikan'
-                ],
+                ingredients: ['2 batang seledri', '1/2 mentimun', '1 apel hijau', '1/2 lemon', '1 cm jahe', 'Segenggam bayam'],
+                steps: ['Cuci bersih semua sayur dan buah', 'Potong-potong agar muat di juicer', 'Jus semua bahan kecuali lemon', 'Peras lemon di akhir untuk kesegaran', 'Saring jika ingin tekstur halus, aduk dan sajikan'],
                 tips: 'Minum segera setelah dibuat untuk mendapatkan nutrisi maksimal. Bisa ditambahkan es batu.'
             },
             {
                 id: 8,
                 name: 'Cappuccino',
                 category: 'coffee',
-                image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400',
+                image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800',
                 temp: 'hot',
                 taste: 'less-sweet',
                 difficulty: 'hard',
                 time: 'medium',
                 timeText: '10 menit',
                 tags: ['Panas', 'Kafein', 'Classic'],
-                ingredients: [
-                    '18gr kopi espresso (fine grind)',
-                    '150ml susu segar',
-                    'Coklat bubuk untuk taburan',
-                    'Gula secukupnya (opsional)'
-                ],
-                steps: [
-                    'Seduh espresso dengan mesin espresso',
-                    'Panaskan susu dengan steam wand hingga 65°C',
-                    'Buat microfoam dengan teknik steaming yang benar',
-                    'Tuang espresso ke cup',
-                    'Tuang susu dengan teknik free pour untuk latte art',
-                    'Taburi coklat bubuk di atasnya'
-                ],
+                ingredients: ['18gr kopi espresso (fine grind)', '150ml susu segar', 'Coklat bubuk untuk taburan', 'Gula secukupnya (opsional)'],
+                steps: ['Seduh espresso dengan mesin espresso', 'Panaskan susu dengan steam wand hingga 65°C', 'Buat microfoam dengan teknik steaming yang benar', 'Tuang espresso ke cup', 'Tuang susu dengan teknik free pour untuk latte art', 'Taburi coklat bubuk di atasnya'],
                 tips: 'Rasio cappuccino adalah 1:1:1 (espresso:steamed milk:foam). Foam harus thick dan creamy.'
-            },
-            {
-                id: 9,
-                name: 'Thai Iced Tea',
-                category: 'tea',
-                image: 'https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?w=400',
-                temp: 'cold',
-                taste: 'sweet',
-                difficulty: 'medium',
-                time: 'medium',
-                timeText: '15 menit',
-                tags: ['Dingin', 'Creamy', 'Thai'],
-                ingredients: [
-                    '3 sdm Thai tea mix',
-                    '400ml air panas',
-                    '3 sdm krimer kental manis',
-                    '2 sdm gula',
-                    'Es batu',
-                    'Susu evaporasi untuk topping'
-                ],
-                steps: [
-                    'Seduh Thai tea dengan air panas selama 5 menit',
-                    'Saring dan tambahkan gula, aduk hingga larut',
-                    'Biarkan suhu turun ke suhu ruang',
-                    'Isi gelas dengan es batu penuh',
-                    'Tuang teh dan krimer, aduk rata',
-                    'Tuang susu evaporasi di atasnya tanpa diaduk'
-                ],
-                tips: 'Jangan diaduk setelah menambahkan susu evaporasi agar tampilan layer tetap cantik. Gunakan banyak es agar tidak terlalu manis.'
-            },
-            {
-                id: 10,
-                name: 'Tropical Smoothie Bowl',
-                category: 'smoothie',
-                image: 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400',
-                temp: 'cold',
-                taste: 'sweet',
-                difficulty: 'medium',
-                time: 'medium',
-                timeText: '10 menit',
-                tags: ['Dingin', 'Instagramable', 'Breakfast'],
-                ingredients: [
-                    '150gr frozen mango',
-                    '1 frozen banana',
-                    '50ml coconut milk',
-                    'Topping: granola, chia seeds, buah segar',
-                    '1 sdm madu'
-                ],
-                steps: [
-                    'Blender frozen mango, banana, dan coconut milk hingga thick',
-                    'Tuang ke bowl, ratakan dengan spatula',
-                    'Hias dengan topping sesuai selera',
-                    'Tambahkan madu di atasnya',
-                    'Sajikan segera agar tidak mencair'
-                ],
-                tips: 'Tekstur harus thick seperti soft serve. Jangan terlalu banyak liquid agar tidak encer.'
-            },
-            {
-                id: 11,
-                name: 'Watermelon Cooler',
-                category: 'juice',
-                image: 'https://images.unsplash.com/photo-1589734580748-ac071dfa3af4?w=400',
-                temp: 'cold',
-                taste: 'less-sweet',
-                difficulty: 'easy',
-                time: 'quick',
-                timeText: '5 menit',
-                tags: ['Dingin', 'Hydrating', 'Summer'],
-                ingredients: [
-                    '300gr semangka tanpa biji',
-                    '1/2 lemon',
-                    '5 daun mint',
-                    'Soda water',
-                    'Es batu'
-                ],
-                steps: [
-                    'Blender semangka hingga halus',
-                    'Saring untuk membuang ampas (opsional)',
-                    'Tambahkan perasan lemon dan daun mint yang dimuddle',
-                    'Isi gelas dengan es batu',
-                    'Tuang jus dan tambahkan soda water'
-                ],
-                tips: 'Pilih semangka yang matang sempurna untuk rasa manis alami tanpa perlu gula tambahan.'
-            },
-            {
-                id: 12,
-                name: 'Chocolate Freakshake',
-                category: 'milkshake',
-                image: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=400',
-                temp: 'cold',
-                taste: 'sweet',
-                difficulty: 'hard',
-                time: 'long',
-                timeText: '20 menit',
-                tags: ['Dingin', 'Decadent', 'Dessert'],
-                ingredients: [
-                    '3 scoop es krim coklat',
-                    '250ml susu coklat',
-                    'Coklat leleh untuk hiasan gelas',
-                    'Whipped cream, brownie pieces, coklat batang',
-                    'Saus karamel'
-                ],
-                steps: [
-                    'Hiasi gelas dengan coklat leleh yang meleleh di sisi',
-                    'Blender es krim dan susu coklat',
-                    'Tuang ke gelas yang sudah dihias',
-                    'Tambahkan whipped cream setinggi mungkin',
-                    'Hias dengan brownie, coklat batang, dan saus karamel'
-                ],
-                tips: 'Ini adalah milkshake ekstrem! Gunakan gelas mason jar besar untuk menampung semua topping.'
             }
         ];
 
-        // State
         let selectedCategories = [];
-        let selectedFilters = {
-            temp: [],
-            taste: [],
-            difficulty: [],
-            time: []
-        };
+        let selectedFilters = { temp: [], taste: [], difficulty: [], time: [] };
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             renderCategories();
             setupFilterListeners();
             createBubbles();
         });
 
-        // Create background bubbles
         function createBubbles() {
             const container = document.getElementById('bubbles');
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 10; i++) {
                 const bubble = document.createElement('div');
                 bubble.className = 'bubble';
-                const size = Math.random() * 60 + 20;
+                const size = Math.random() * 50 + 20;
                 bubble.style.width = size + 'px';
                 bubble.style.height = size + 'px';
                 bubble.style.left = Math.random() * 100 + '%';
@@ -1180,7 +423,6 @@ html_content = '''<!DOCTYPE html>
             }
         }
 
-        // Render Categories
         function renderCategories() {
             const grid = document.getElementById('categoriesGrid');
             grid.innerHTML = categories.map(cat => `
@@ -1191,7 +433,6 @@ html_content = '''<!DOCTYPE html>
             `).join('');
         }
 
-        // Toggle Category
         function toggleCategory(id) {
             const card = document.querySelector(`[data-id="${id}"]`);
             if (selectedCategories.includes(id)) {
@@ -1203,13 +444,11 @@ html_content = '''<!DOCTYPE html>
             }
         }
 
-        // Setup Filter Listeners
         function setupFilterListeners() {
             document.querySelectorAll('.filter-chip').forEach(chip => {
                 chip.addEventListener('click', function() {
                     const filter = this.dataset.filter;
                     const value = this.dataset.value;
-                    
                     if (this.classList.contains('active')) {
                         this.classList.remove('active');
                         selectedFilters[filter] = selectedFilters[filter].filter(v => v !== value);
@@ -1221,7 +460,6 @@ html_content = '''<!DOCTYPE html>
             });
         }
 
-        // Apply Filters
         function applyFilters() {
             showSection('recipes');
             document.getElementById('loadingRecipes').classList.add('active');
@@ -1232,51 +470,27 @@ html_content = '''<!DOCTYPE html>
                 const filtered = filterRecipes();
                 renderRecipes(filtered);
                 document.getElementById('loadingRecipes').classList.remove('active');
-            }, 800);
+            }, 600);
         }
 
-        // Filter Logic
         function filterRecipes() {
             return recipes.filter(recipe => {
-                // Category filter
-                if (selectedCategories.length > 0 && !selectedCategories.includes(recipe.category)) {
-                    return false;
-                }
-
-                // Temp filter
-                if (selectedFilters.temp.length > 0 && !selectedFilters.temp.includes(recipe.temp)) {
-                    return false;
-                }
-
-                // Taste filter
-                if (selectedFilters.taste.length > 0 && !selectedFilters.taste.includes(recipe.taste)) {
-                    return false;
-                }
-
-                // Difficulty filter
-                if (selectedFilters.difficulty.length > 0 && !selectedFilters.difficulty.includes(recipe.difficulty)) {
-                    return false;
-                }
-
-                // Time filter
-                if (selectedFilters.time.length > 0 && !selectedFilters.time.includes(recipe.time)) {
-                    return false;
-                }
-
+                if (selectedCategories.length > 0 && !selectedCategories.includes(recipe.category)) return false;
+                if (selectedFilters.temp.length > 0 && !selectedFilters.temp.includes(recipe.temp)) return false;
+                if (selectedFilters.taste.length > 0 && !selectedFilters.taste.includes(recipe.taste)) return false;
+                if (selectedFilters.difficulty.length > 0 && !selectedFilters.difficulty.includes(recipe.difficulty)) return false;
+                if (selectedFilters.time.length > 0 && !selectedFilters.time.includes(recipe.time)) return false;
                 return true;
             });
         }
 
-        // Render Recipes
         function renderRecipes(recipeList) {
             const grid = document.getElementById('recipesGrid');
-            
             if (recipeList.length === 0) {
                 document.getElementById('emptyState').style.display = 'block';
                 grid.style.display = 'none';
                 return;
             }
-
             grid.style.display = 'grid';
             grid.innerHTML = recipeList.map(recipe => `
                 <div class="recipe-card" onclick="showDetail(${recipe.id})">
@@ -1300,41 +514,51 @@ html_content = '''<!DOCTYPE html>
             return map[diff] || diff;
         }
 
-        // Show Detail
         function showDetail(id) {
             const recipe = recipes.find(r => r.id === id);
             if (!recipe) return;
 
             const container = document.getElementById('detailContainer');
             container.innerHTML = `
-                <div class="detail-header">
-                    <img src="${recipe.image}" alt="${recipe.name}" class="detail-image">
-                    <h1 class="detail-title">${recipe.name}</h1>
-                    <div class="detail-meta">
-                        <span class="meta-item">⏱️ ${recipe.timeText}</span>
-                        <span class="meta-item">📊 ${getDifficultyText(recipe.difficulty)}</span>
-                        <span class="meta-item">🌡️ ${recipe.temp === 'hot' ? 'Panas' : 'Dingin'}</span>
+                <div class="back-btn" onclick="showSection('recipes')">
+                    <span>←</span> Kembali ke Daftar
+                </div>
+                
+                <div class="detail-hero">
+                    <div class="detail-image-container">
+                        <img src="${recipe.image}" alt="${recipe.name}" class="detail-image">
+                    </div>
+                    <div class="detail-hero-content">
+                        <h1 class="detail-title">${recipe.name}</h1>
+                        <div class="detail-meta">
+                            <span class="meta-badge">⏱️ ${recipe.timeText}</span>
+                            <span class="meta-badge">📊 ${getDifficultyText(recipe.difficulty)}</span>
+                            <span class="meta-badge">🌡️ ${recipe.temp === 'hot' ? 'Panas' : 'Dingin'}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h3>🧪 Bahan-bahan</h3>
+                <div class="detail-body">
+                    <div class="detail-card">
+                        <h3 class="detail-section-title">🧪 Bahan-bahan</h3>
                         <ul class="ingredients-list">
                             ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
                         </ul>
                     </div>
 
-                    <div class="detail-section">
-                        <h3>⚗️ Langkah Pembuatan</h3>
+                    <div class="detail-card">
+                        <h3 class="detail-section-title">⚗️ Langkah Pembuatan</h3>
                         <ol class="steps-list">
                             ${recipe.steps.map(step => `<li>${step}</li>`).join('')}
                         </ol>
                     </div>
 
-                    <div class="tips-box">
-                        <h4>💡 Tips dari Ahli</h4>
-                        <p>${recipe.tips}</p>
+                    <div class="tips-card">
+                        <div class="tips-header">
+                            <div class="tips-icon">💡</div>
+                            <h4>Tips dari Ahli</h4>
+                        </div>
+                        <p class="tips-text">${recipe.tips}</p>
                     </div>
                 </div>
             `;
@@ -1342,15 +566,12 @@ html_content = '''<!DOCTYPE html>
             showSection('detail');
         }
 
-        // Random Drink
         function randomDrink() {
             const random = recipes[Math.floor(Math.random() * recipes.length)];
             showDetail(random.id);
         }
 
-        // Navigation
         function showSection(sectionId) {
-            // Update nav active state
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('onclick').includes(sectionId)) {
@@ -1358,15 +579,11 @@ html_content = '''<!DOCTYPE html>
                 }
             });
 
-            // Hide all sections
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
             });
 
-            // Show target section
             document.getElementById(sectionId).classList.add('active');
-
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
