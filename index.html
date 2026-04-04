@@ -1,148 +1,338 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Stories & Games Collection</title>
+    <title>DrinxLab - Laboratorium Minuman</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-light: #7dd3fc;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --lab-blue: #dbeafe;
+            --lab-green: #d1fae5;
+            --lab-purple: #f3e8ff;
+            --lab-orange: #ffedd5;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            min-height: 100vh;
-            padding: 20px;
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Space Grotesk', sans-serif; }
+
+        /* Navigation */
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; padding: 1rem 2rem; }
+        .nav-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; cursor: pointer; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-light); font-weight: 500; transition: all 0.3s; cursor: pointer; padding: 0.5rem 1rem; border-radius: 50px; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); background: var(--lab-blue); }
+
+        /* Container */
+        .container { max-width: 1400px; margin: 0 auto; padding: 6rem 2rem 2rem; }
+
+        /* Sections */
+        .section { display: none; animation: fadeIn 0.5s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Home */
+        .hero { text-align: center; padding: 3rem 0; position: relative; }
+        .hero::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, var(--lab-blue) 0%, transparent 70%); z-index: -1; animation: pulse 4s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); } 50% { opacity: 0.8; transform: translateX(-50%) scale(1.1); } }
+        .hero h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.25rem; color: var(--text-light); max-width: 600px; margin: 0 auto 2rem; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(14, 165, 233, 0.4); }
+
+        /* Feature Cards */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 3rem 0; }
+        .feature-card { background: var(--card); border-radius: 24px; padding: 2rem; text-align: center; border: 2px solid var(--border); transition: all 0.3s ease; cursor: pointer; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .feature-desc { color: var(--text-light); font-size: 0.95rem; }
+
+        /* LAB STYLES */
+        .lab-container { display: grid; grid-template-columns: 1fr 380px; gap: 2rem; margin-top: 2rem; }
+        
+        .lab-panel { background: var(--card); border-radius: 24px; padding: 2rem; border: 1px solid var(--border); box-shadow: var(--shadow); }
+        .panel-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--lab-blue); }
+        .panel-title { font-size: 1.25rem; color: var(--primary); }
+        
+        .base-section { margin-bottom: 2.5rem; }
+        .section-label { font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text); font-size: 1.1rem; }
+        .base-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .base-card { padding: 1.5rem 1rem; border: 3px solid var(--border); border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.3s; background: var(--bg); }
+        .base-card:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: var(--shadow); }
+        .base-card.selected { border-color: var(--primary); background: var(--lab-blue); box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2); }
+        .base-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .base-name { font-weight: 600; font-size: 1rem; }
+        .base-desc { font-size: 0.8rem; color: var(--text-light); margin-top: 0.25rem; }
+
+        .ingredient-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem; }
+        .ing-tab { padding: 0.6rem 1.2rem; background: var(--bg); border: 2px solid var(--border); border-radius: 50px; cursor: pointer; white-space: nowrap; font-size: 0.9rem; transition: all 0.3s; font-weight: 500; }
+        .ing-tab:hover { border-color: var(--primary); }
+        .ing-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        .ingredients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.75rem; }
+        .ing-item { padding: 1rem 0.5rem; background: var(--bg); border: 2px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .ing-item:hover { border-color: var(--secondary); transform: scale(1.05); background: white; }
+        .ing-item:active { transform: scale(0.95); }
+        .ing-emoji { font-size: 1.75rem; display: block; margin-bottom: 0.25rem; }
+        .ing-name { font-size: 0.7rem; font-weight: 600; }
+
+        /* Mixing Station */
+        .mixing-station { background: linear-gradient(135deg, var(--lab-blue), var(--lab-green)); border-radius: 24px; padding: 2rem; position: sticky; top: 100px; height: fit-content; }
+        .station-header { text-align: center; margin-bottom: 1.5rem; }
+        .station-title { font-size: 1.5rem; color: var(--text); }
+        
+        .glass-container { background: rgba(255, 255, 255, 0.6); border-radius: 20px; padding: 2rem; margin-bottom: 1.5rem; }
+        .glass-visual { width: 140px; height: 180px; margin: 0 auto; border: 4px solid rgba(255, 255, 255, 0.9); border-radius: 10px 10px 30px 30px; position: relative; overflow: hidden; background: rgba(255, 255, 255, 0.3); }
+        .liquid-base { position: absolute; bottom: 0; left: 0; right: 0; height: 60%; transition: all 0.5s ease; opacity: 0.8; }
+        .liquid-soda { background: linear-gradient(to top, #06b6d4, #67e8f9); }
+        .liquid-milk { background: linear-gradient(to top, #f1f5f9, #ffffff); }
+        .liquid-water { background: linear-gradient(to top, #0ea5e9, #7dd3fc); }
+        
+        .liquid-layers { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; }
+        .layer-item { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.25rem; animation: dropIn 0.3s ease; }
+        @keyframes dropIn { from { transform: translateX(-50%) translateY(-20px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+        
+        .empty-glass { text-align: center; padding-top: 3rem; color: var(--text-light); }
+        .empty-glass-icon { font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.5; }
+        
+        .recipe-list { max-height: 220px; overflow-y: auto; margin-bottom: 1.5rem; background: rgba(255, 255, 255, 0.5); border-radius: 12px; padding: 0.75rem; }
+        .recipe-item { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.75rem; background: rgba(255, 255, 255, 0.9); border-radius: 8px; margin-bottom: 0.4rem; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateX(-10px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .recipe-item-info { display: flex; align-items: center; gap: 0.5rem; }
+        .recipe-item-emoji { font-size: 1.25rem; }
+        .recipe-item-name { font-weight: 500; font-size: 0.85rem; }
+        .remove-btn { background: var(--danger); color: white; border: none; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; transition: transform 0.2s; }
+        .remove-btn:hover { transform: scale(1.1); }
+        
+        .action-buttons { display: flex; gap: 0.75rem; }
+        .btn-mix { flex: 1; padding: 1rem; background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-size: 1rem; }
+        .btn-mix:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+        .btn-mix:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-clear { padding: 1rem 1.25rem; background: rgba(255, 255, 255, 0.9); color: var(--danger); border: 2px solid var(--danger); border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-clear:hover { background: var(--danger); color: white; }
+
+        /* Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); z-index: 2000; align-items: center; justify-content: center; padding: 2rem; backdrop-filter: blur(5px); }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: white; border-radius: 24px; max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 2rem; animation: modalPop 0.3s ease; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+        @keyframes modalPop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-header { text-align: center; margin-bottom: 1.5rem; }
+        .modal-emoji { font-size: 4rem; margin-bottom: 0.5rem; }
+        .modal-title { font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--text); }
+        .modal-subtitle { color: var(--text-light); }
+        .result-section { margin-bottom: 1.25rem; }
+        .result-label { font-weight: 600; margin-bottom: 0.5rem; color: var(--primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .result-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .result-tag { padding: 0.5rem 1rem; background: var(--lab-blue); border-radius: 50px; font-size: 0.9rem; font-weight: 500; }
+        .btn-close { width: 100%; padding: 1rem; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.3s; }
+        .btn-close:hover { background: #0284c7; }
+
+        /* Categories & Recipes */
+        .section-title { font-size: 1.75rem; margin-bottom: 0.5rem; text-align: center; }
+        .section-subtitle { text-align: center; color: var(--text-light); margin-bottom: 1.5rem; }
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .category-card { background: var(--card); border: 2px solid var(--border); border-radius: 20px; padding: 2rem 1rem; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .category-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--lab-blue), var(--lab-green)); opacity: 0; transition: opacity 0.3s; z-index: 0; }
+        .category-card:hover::before, .category-card.selected::before { opacity: 1; }
+        .category-card:hover, .category-card.selected { border-color: var(--primary); transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .category-icon { font-size: 3rem; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+        .category-name { font-weight: 600; position: relative; z-index: 1; }
+
+        .filters-container { background: var(--card); border-radius: 20px; padding: 2rem; margin: 2rem 0; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .filter-group { margin-bottom: 1.5rem; }
+        .filter-label { font-weight: 600; margin-bottom: 0.75rem; display: block; color: var(--text); }
+        .filter-options { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .filter-chip { padding: 0.5rem 1rem; background: var(--bg); border: 2px solid var(--border); border-radius: 50px; cursor: pointer; transition: all 0.3s; font-size: 0.9rem; }
+        .filter-chip:hover, .filter-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .recipes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .recipe-card { background: var(--card); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); transition: all 0.3s ease; cursor: pointer; border: 1px solid var(--border); }
+        .recipe-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+        .recipe-image { width: 100%; height: 200px; object-fit: cover; }
+        .recipe-content { padding: 1.5rem; }
+        .recipe-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem; }
+        .recipe-title { font-size: 1.25rem; font-weight: 700; flex: 1; }
+        .recipe-price { font-size: 1.1rem; font-weight: 700; color: var(--secondary); background: var(--lab-green); padding: 0.25rem 0.75rem; border-radius: 50px; }
+        .recipe-meta { display: flex; gap: 1rem; color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .recipe-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag { padding: 0.25rem 0.75rem; background: var(--lab-blue); color: var(--primary); border-radius: 50px; font-size: 0.8rem; font-weight: 500; }
+        .tag.price-tag { background: var(--lab-green); color: var(--secondary); font-weight: 600; }
+
+        .empty-state { text-align: center; padding: 3rem 2rem; color: var(--text-light); }
+        .empty-state-icon { font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.5; }
+
+        /* Detail Section */
+        .detail-wrapper { max-width: 800px; margin: 0 auto; padding: 1rem 0; }
+        .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; color: var(--text-light); cursor: pointer; transition: color 0.3s; font-weight: 500; }
+        .back-btn:hover { color: var(--primary); }
+        .detail-hero { background: var(--card); border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-lg); margin-bottom: 2rem; border: 1px solid var(--border); }
+        .detail-image-container { width: 100%; height: 350px; overflow: hidden; }
+        .detail-image { width: 100%; height: 100%; object-fit: cover; }
+        .detail-hero-content { padding: 1.5rem 2rem; }
+        .detail-title { font-size: 2rem; margin-bottom: 1rem; }
+        .detail-meta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .meta-badge { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--lab-blue); border-radius: 50px; font-size: 0.9rem; color: var(--primary); font-weight: 500; }
+        .meta-badge.price { background: var(--lab-green); color: var(--secondary); font-weight: 700; }
+        .detail-body { display: flex; flex-direction: column; gap: 1.5rem; }
+        .detail-card { background: var(--card); border-radius: 20px; padding: 1.5rem; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .detail-section-title { font-size: 1.25rem; margin-bottom: 1rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--lab-blue); }
+        .ingredients-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .ingredients-list li { padding: 0.75rem 1rem; background: var(--bg); border-radius: 10px; display: flex; align-items: center; gap: 0.5rem; border-left: 3px solid var(--primary); }
+        .ingredients-list li::before { content: '⚗️'; }
+        .ingredient-amount { margin-left: auto; font-weight: 600; color: var(--secondary); font-size: 0.9rem; }
+        .steps-list { counter-reset: step; list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+        .steps-list li { position: relative; padding-left: 3rem; padding-top: 0.25rem; }
+        .steps-list li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 0; width: 2rem; height: 2rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+        .tips-card { background: linear-gradient(135deg, var(--lab-green), var(--lab-blue)); border-radius: 16px; padding: 1.5rem; border: 2px solid var(--secondary); }
+        .tips-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .tips-header h4 { color: var(--secondary); font-size: 1.1rem; }
+        .tips-icon { width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .price-card { background: linear-gradient(135deg, var(--lab-green), #ecfdf5); border-radius: 16px; padding: 1.5rem; border: 2px solid var(--secondary); text-align: center; }
+        .price-label { font-size: 0.9rem; color: var(--text-light); margin-bottom: 0.5rem; }
+        .price-value { font-size: 2.5rem; font-weight: 700; color: var(--secondary); }
+        .volume-info { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem; }
+        .volume-item { background: white; padding: 1rem; border-radius: 12px; text-align: center; }
+        .volume-label { font-size: 0.8rem; color: var(--text-light); margin-bottom: 0.25rem; }
+        .volume-value { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+
+        /* Loading */
+        .loading { display: none; text-align: center; padding: 3rem; }
+        .loading.active { display: block; }
+        .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .lab-container { grid-template-columns: 1fr; }
+            .mixing-station { position: relative; top: 0; order: -1; }
+            .base-options { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+            .categories-grid { grid-template-columns: repeat(2, 1fr); }
+            .recipes-grid { grid-template-columns: 1fr; }
+            .detail-image-container { height: 250px; }
         }
-        h1 { text-align: center; margin-bottom: 20px; font-size: 2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .search-container {
-            max-width: 500px; margin: 0 auto 30px; text-align: center;
-        }
-        input[type="text"] {
-            width: 70%; padding: 12px; font-size: 16px; border: none; border-radius: 25px 0 0 25px;
-            outline: none; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        button {
-            padding: 12px 20px; font-size: 16px; border: none; background: #ff6b6b; color: white;
-            border-radius: 0 25px 25px 0; cursor: pointer; transition: background 0.3s;
-        }
-        button:hover { background: #ff5252; }
-        .filter-btns { text-align: center; margin-bottom: 30px; }
-        .filter-btn { 
-            margin: 0 10px; padding: 10px 20px; background: rgba(255,255,255,0.2); 
-            border: none; border-radius: 20px; color: white; cursor: pointer; transition: all 0.3s;
-        }
-        .filter-btn.active, .filter-btn:hover { background: #ff6b6b; transform: scale(1.05); }
-        .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px; max-width: 1200px; margin: 0 auto;
-        }
-        .card {
-            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
-            border-radius: 15px; padding: 20px; text-align: center;
-            transition: all 0.3s; border: 1px solid rgba(255,255,255,0.2);
-            cursor: pointer; box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-        .card:hover {
-            transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            background: rgba(255,255,255,0.2);
-        }
-        .card h3 { font-size: 1.5em; margin-bottom: 10px; color: #ffeb3b; }
-        .card p { line-height: 1.5; margin-bottom: 10px; }
-        .genre { 
-            display: inline-block; background: #ff6b6b; padding: 5px 12px;
-            border-radius: 15px; font-size: 0.9em; margin-top: 10px;
-        }
-        .no-results { text-align: center; font-size: 1.2em; margin-top: 50px; }
+
+        .bubbles { position: fixed; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: -1; overflow: hidden; }
+        .bubble { position: absolute; bottom: -100px; background: rgba(14, 165, 233, 0.1); border-radius: 50%; animation: rise 15s infinite ease-in; }
+        @keyframes rise { 0% { bottom: -100px; transform: translateX(0) scale(1); } 50% { transform: translateX(100px) scale(1.1); } 100% { bottom: 100vh; transform: translateX(-200px) scale(0.8); } }
     </style>
 </head>
 <body>
-    <h1>🍥 Anime Stories & Games Collection 🍜</h1>
-    
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search by name, genre, or description...">
-        <button onclick="searchItems()">🔍 Search</button>
-    </div>
-    
-    <div class="filter-btns">
-        <button class="filter-btn active" onclick="filterItems('all')">All</button>
-        <button class="filter-btn" onclick="filterItems('anime')">Anime</button>
-        <button class="filter-btn" onclick="filterItems('game')">Games</button>
-    </div>
+    <div class="bubbles" id="bubbles"></div>
 
-    <div id="grid" class="grid"></div>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="logo" onclick="showSection('home')">
+                <div class="logo-icon">🧪</div>
+                <span>DrinxLab</span>
+            </a>
+            <ul class="nav-links">
+                <li><a onclick="showSection('home')" class="active">Home</a></li>
+                <li><a onclick="showSection('lab')">Lab Custom</a></li>
+                <li><a onclick="showSection('categories')">Resep</a></li>
+                <li><a onclick="randomDrink()">Random</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <script>
-        const items = [
-            // Anime Stories
-            { id: 1, title: "Naruto", type: "anime", genre: "Action, Adventure", desc: "A young ninja's journey to become Hokage and protect his village." },
-            { id: 2, title: "Attack on Titan", type: "anime", genre: "Dark Fantasy, Action", desc: "Humanity fights giant Titans in a post-apocalyptic world." },
-            { id: 3, title: "One Piece", type: "anime", genre: "Adventure, Pirates", desc: "Luffy searches for the ultimate treasure with his pirate crew." },
-            { id: 4, title: "Demon Slayer", type: "anime", genre: "Action, Supernatural", desc: "Tanjiro battles demons to save his sister and avenge his family." },
-            { id: 5, title: "Death Note", type: "anime", genre: "Thriller, Mystery", desc: "A notebook that kills anyone whose name is written in it." },
-            { id: 6, title: "My Hero Academia", type: "anime", genre: "Superhero, Action", desc: "Izuku inherits superpowers in a world of heroes and villains." },
-            { id: 7, title: "Fullmetal Alchemist: Brotherhood", type: "anime", genre: "Adventure, Fantasy", desc: "Brothers seek the Philosopher's Stone after a failed alchemy experiment." },
-            { id: 8, title: "Jujutsu Kaisen", type: "anime", genre: "Action, Supernatural", desc: "Yuji eats a cursed finger and joins the fight against curses." },
+    <div class="container">
+                </div>
+                <div class="detail-hero">
+                    <div class="detail-image-container">
+                        <img src="${r.image}" class="detail-image">
+                    </div>
+                    <div class="detail-hero-content">
+                        <h1 class="detail-title">${r.name}</h1>
+                        <div class="detail-meta">
+                            <span class="meta-badge price">💰 Rp ${formatPrice(r.price)}</span>
+                            <span class="meta-badge">⏱️ ${r.timeText}</span>
+                            <span class="meta-badge">🌡️ ${r.temp === 'hot' ? 'Panas' : 'Dingin'}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-label">Harga Jual</div>
+                    <div class="price-value">Rp ${formatPrice(r.price)}</div>
+                    <div class="volume-info">
+                        <div class="volume-item">
+                            <div class="volume-label">Volume</div>
+                            <div class="volume-value">${r.volume}</div>
+                        </div>
+                        <div class="volume-item">
+                            <div class="volume-label">Es Batu</div>
+                            <div class="volume-value">${r.ice}</div>
+                        </div>
+                    </div>
+                </div>
 
-            // Games (Anime-style or popular with anime adaptations)
-            { id: 9, title: "Genshin Impact", type: "game", genre: "Open-World RPG", desc: "Explore Teyvat as a Traveler searching for a lost sibling." },
-            { id: 10, title: "Persona 5 Royal", type: "game", genre: "JRPG, Turn-Based", desc: "Phantom Thieves steal corrupt hearts in modern Tokyo." },
-            { id: 11, title: "Nier: Automata", type: "game", genre: "Action RPG", desc: "Androids fight machines in a post-human world." },
-            { id: 12, title: "Final Fantasy VII Remake", type: "game", genre: "Action RPG", desc: "Cloud and Avalanche fight Shinra in Midgar." },
-            { id: 13, title: "Elden Ring", type: "game", genre: "Open-World Action RPG", desc: "Become the Elden Lord in a vast fantasy world." },
-            { id: 14, title: "Honkai: Star Rail", type: "game", genre: "Turn-Based RPG", desc: "Space adventure on the Astral Express across the galaxy." },
-            { id: 15, title: "Zenless Zone Zero", type: "game", genre: "Action RPG", desc: "Fight in the mysterious Hollows of New Eridu." },
-            { id: 16, title: "Blue Archive", type: "game", genre: "Gacha RPG", desc: "Sensei leads students in tactical battles at Kivotos Academy." }
-        ];
-
-        function renderItems(filteredItems) {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = '';
-
-            if (filteredItems.length === 0) {
-                grid.innerHTML = '<div class="no-results">No results found! Try another search. 😿</div>';
-                return;
-            }
-
-            filteredItems.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.onclick = () => alert(`Check out ${item.title}!\n${item.desc}`);
-                card.innerHTML = `
-                    <h3>${item.title}</h3>
-                    <p>${item.desc}</p>
-                    <span class="genre">${item.genre}</span>
-                `;
-                grid.appendChild(card);
-            });
+                <div class="detail-body">
+                    <div class="detail-card">
+                        <h3 class="detail-section-title">🧪 Bahan-bahan & Takaran</h3>
+                        <ul class="ingredients-list">
+                            ${r.ingredients.map(i => `
+                                <li>
+                                    <span>${i.name}</span>
+                                    <span class="ingredient-amount">${i.amount}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h3 class="detail-section-title">⚗️ Langkah Pembuatan</h3>
+                        <ol class="steps-list">
+                            ${r.steps.map(s => `<li>${s}</li>`).join('')}
+                        </ol>
+                    </div>
+                    <div class="tips-card">
+                        <div class="tips-header">
+                            <div class="tips-icon">💡</div>
+                            <h4>Tips Profesional</h4>
+                        </div>
+                        <p>${r.tips}</p>
+                    </div>
+                </div>
+            `;
+            showSection('detail');
         }
 
-        function searchItems() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = items.filter(item =>
-                item.title.toLowerCase().includes(query) ||
-                item.genre.toLowerCase().includes(query) ||
-                item.desc.toLowerCase().includes(query)
-            );
-            renderItems(filtered);
+        function randomDrink() {
+            const r = recipes[Math.floor(Math.random() * recipes.length)];
+            showDetail(r.id);
         }
 
-        function filterItems(type) {
-            // Update active button
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            let filtered;
-            if (type === 'all') filtered = items;
-            else filtered = items.filter(item => item.type === type);
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
             
-            renderItems(filtered);
+            // Update nav active state
+            document.querySelectorAll('.nav-links a').forEach(a => {
+                a.classList.remove('active');
+                if(a.getAttribute('onclick').includes(id)) {
+                    a.classList.add('active');
+                }
+            });
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        // Initial render
-        renderItems(items);
-
-        // Real-time search
-        document.getElementById('searchInput').addEventListener('input', searchItems);
     </script>
 </body>
 </html>
